@@ -45,6 +45,33 @@ body {
   min-height: 100vh; */
 }
 
+input[type="text"],
+input[type="submit"],
+input[type="select"],
+select {
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+input[type="checkbox"] {
+  /* width: 30px; */
+  border: 1px solid white;
+  background-color: rgb(255, 0, 0);
+  color: #646cff;
+}
+
+/* input:checked {
+  height: 30px;
+  width: 30px;
+}
+
+option:checked {
+  height: 100px;
+  width: 100px;
+} */
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -104,13 +131,17 @@ button:focus-visible {
 
 .weekone_inner_container {
   border: 2px solid rgb(255, 255, 255);
-  width: 600px;
-  height: 400px;
+  padding: 50px;
+
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.weekone_text {
+  margin-bottom: 40px;
 }
 
 /* @media (prefers-color-scheme: light) {
