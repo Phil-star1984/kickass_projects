@@ -5,10 +5,15 @@ function WeekOne() {
   const [gross, setGross] = useState("");
   const [net, setNet] = useState("");
   const [otherRate, setOtherRate] = useState("");
+  const [taxRateOne, setTaxRateOne] = useState("");
+  const [taxRateTwo, setTaxRateTwo] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(vat, gross, net, otherRate);
+
+    calculateTax();
+
+    console.log(vat, gross, net, otherRate, taxRateOne, taxRateTwo);
 
     const form = e.target;
     const formData = new FormData(form);
@@ -19,7 +24,9 @@ function WeekOne() {
   };
 
   const calculateTax = () => {
-    const grossResult = net + vat;
+    /* const grossResult = Number(net) + Number(vat); */
+    const grossResult = +net + +vat;
+    setGross(grossResult);
   };
 
   return (
@@ -66,16 +73,30 @@ function WeekOne() {
             </div>
             <div className="weekone_checkboxes">
               <p>3. Select VAT rate:</p>
-              <input type="checkbox" value="tax_rate_one" />
+              <input
+                type="radio"
+                value="19"
+                name="tax_rate"
+                onChange={(e) => setTaxRateOne(e.target.value)}
+              />
               <label htmlFor="tax_rate_one">19%</label>
-              <input type="checkbox" value="tax_rate_two" />
-              <label for="tax_rate_two">7%</label>
-              <label for="other_rate">Custom rate</label>
+              <input
+                type="radio"
+                value="7"
+                name="tax_rate"
+                onChange={(e) => setTaxRateTwo(e.target.value)}
+              />
+              <label htmlFor="tax_rate_two">7%</label>
+              <label htmlFor="other_rate">Custom rate</label>
+              <input
+                type="radio"
+                name="tax_rate"
+                value={otherRate}
+                onChange={(e) => setOtherRate(e.target.value)}
+              />
               <input
                 type="text"
                 name="other_rate"
-                value={otherRate}
-                onChange={(e) => setOtherRate(e.target.value)}
                 placeholder="Custom VAT rate"
               />
             </div>
