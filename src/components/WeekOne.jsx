@@ -1,33 +1,60 @@
 import React, { useState, useEffect } from "react";
 
 function WeekOne() {
+  const [country, setCountry] = useState("germany");
   const [vat, setVat] = useState("");
   const [gross, setGross] = useState("");
   const [net, setNet] = useState("");
-  const [otherRate, setOtherRate] = useState("");
+  const [customVatRate, setCustomVatRate] = useState("");
   const [taxRateOne, setTaxRateOne] = useState("");
-  const [taxRateTwo, setTaxRateTwo] = useState("");
+
+  const countryVatRate = { germany: "19", poland: "23", france: "20" };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    calculateTax();
+    // check country
+    // console.log(countryVatRate.germany);
+    // check if there is a custom VAT rate input (other than default)
+    // calculate missing input fields
 
-    console.log(vat, gross, net, otherRate, taxRateOne, taxRateTwo);
+    /* console.log(vat, gross, net, customVatRate, taxRateOne); */
 
     const form = e.target;
     const formData = new FormData(form);
-
     /* console.log(formData); */
+
     const formJson = Object.fromEntries(formData.entries());
     console.log(formJson);
+
+    calculateTax(country);
   };
 
-  const calculateTax = () => {
-    /* const grossResult = Number(net) + Number(vat); */
+  /* const calculateTax = () => {
+    if (net) {
+      const calculateVat = +net * vat_rate;
+    }
+    // const grossResult = Number(net) + Number(vat);
     const grossResult = +net + +vat;
     setGross(grossResult);
-  };
+  }; */
+
+  function calculateTax(country) {
+    // check if custom VAT rate
+    if (customVatRate) {
+      console.log("The user entered a custom VAT rate");
+      const calculateVat = +net * (+customVatRate / 100);
+      setVat(calculateVat);
+      const grossResult = +net + calculateVat;
+      setGross(grossResult);
+    } else {
+      // get VAT rate from country
+      const getCountryVatRate = +countryVatRate[country];
+      console.log("VAT RATE: ", getCountryVatRate);
+
+      // calculate missing fields
+    }
+  }
 
   return (
     <div className="weekone_outer_container">
@@ -38,8 +65,15 @@ function WeekOne() {
         </div>
         <div className="weekone_content">
           <form type="submit" className="submit_form" onSubmit={handleSubmit}>
-            <label htmlFor="countries">1. Choose a Country</label>
-            <select name="countries" id="countries" defaultValue="poland">
+            <label htmlFor="country">1. Choose a Country</label>
+            <select
+              name="country"
+              id="country"
+              defaultValue="germany"
+              onChange={(e) => {
+                setCountry(e.target.value);
+              }}
+            >
               <option value="germany">Germany</option>
               <option value="poland">Poland</option>
               <option value="france">France</option>
@@ -75,32 +109,37 @@ function WeekOne() {
               <p>3. Select VAT rate:</p>
               <input
                 type="radio"
-                value="19"
-                name="tax_rate"
-                onChange={(e) => setTaxRateOne(e.target.value)}
+                value={countryVatRate[country]}
+                name="vat_rate"
+                onChange={() => setCustomVatRate("")}
+                checked={
+                  customVatRate === "" ||
+                  customVatRate === countryVatRate[country]
+                }
               />
-              <label htmlFor="tax_rate_one">19%</label>
+              <label htmlFor="vat_rate">{countryVatRate[country]} %</label>
+
+              <label htmlFor="vat_rate"> Custom rate</label>
               <input
                 type="radio"
-                value="7"
-                name="tax_rate"
-                onChange={(e) => setTaxRateTwo(e.target.value)}
-              />
-              <label htmlFor="tax_rate_two">7%</label>
-              <label htmlFor="other_rate">Custom rate</label>
-              <input
-                type="radio"
-                name="tax_rate"
-                value={otherRate}
-                onChange={(e) => setOtherRate(e.target.value)}
+                name="vat_rate"
+                checked={
+                  customVatRate !== "" &&
+                  customVatRate !== countryVatRate[country]
+                }
               />
               <input
                 type="text"
-                name="other_rate"
+                name="vat_rate"
+                value={customVatRate}
+                onChange={(e) => setCustomVatRate(e.target.value)}
                 placeholder="Custom VAT rate"
               />
             </div>
             <button type="submit">Calculate</button>
+            <button type="reset" value="reset">
+              Reset
+            </button>
           </form>
         </div>
       </div>
