@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 function WeekOne() {
   const [country, setCountry] = useState("germany");
   const [vat, setVat] = useState("");
+  const [vatRate, setVatRate] = useState("19");
   const [gross, setGross] = useState("");
   const [net, setNet] = useState("");
   const [customVatRate, setCustomVatRate] = useState("");
@@ -13,19 +14,11 @@ function WeekOne() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // check country
-    // console.log(countryVatRate.germany);
-    // check if there is a custom VAT rate input (other than default)
-    // calculate missing input fields
-
-    /* console.log(vat, gross, net, customVatRate, taxRateOne); */
-
-    const form = e.target;
+    /* const form = e.target;
     const formData = new FormData(form);
-    /* console.log(formData); */
 
     const formJson = Object.fromEntries(formData.entries());
-    console.log(formJson);
+    console.log(formJson); */
 
     calculateTax(country);
   };
@@ -42,19 +35,58 @@ function WeekOne() {
   function calculateTax(country) {
     // check if custom VAT rate
     if (customVatRate) {
-      console.log("The user entered a custom VAT rate");
-      const calculateVat = +net * (+customVatRate / 100);
+      /* setVatRate(customVatRate); */
+      console.log(`The user entered a custom VAT rate of: ${customVatRate}`);
+
+      if (net && vat == "" && gross == "") {
+        // calculate vat & gross
+        const calculateVat = +net * (+customVatRate / 100);
+        setVat(calculateVat);
+        const grossResult = +net + calculateVat;
+        setGross(grossResult);
+      }
+
+      if (vat && net == "" && gross == "") {
+        // calculate net & gross
+        const calculateNet = +vat / (+customVatRate / 100);
+        setNet(calculateNet);
+        const calculateGross = calculateNet + +vat;
+        setGross(calculateGross);
+      }
+
+      if (gross && net == "" && vat == "") {
+        // calculate net & vat
+        const calculateNet = +gross / (1 + +customVatRate / 100);
+        setNet(calculateNet);
+        const calculateVat = +gross - calculateNet;
+        setVat(calculateVat);
+      }
+
+      if ((vat && gross) || (vat && net && gross)) {
+        console.log("Wrong entries", emptyAllFields());
+      }
+    } else {
+      // get VAT rate from country
+      /* setVatRate(countryVatRate[country]); */
+      console.log(
+        `Take countries standard VAT rate: ${countryVatRate[country]}`
+      );
+
+      const calculateVat = +net * (+vatRate / 100);
       setVat(calculateVat);
       const grossResult = +net + calculateVat;
       setGross(grossResult);
-    } else {
-      // get VAT rate from country
-      const getCountryVatRate = +countryVatRate[country];
-      console.log("VAT RATE: ", getCountryVatRate);
-
-      // calculate missing fields
     }
+    // calculate missing fields
   }
+
+  const emptyAllFields = (e) => {
+    console.log("It works");
+    setVat("");
+    setVatRate("");
+    setGross("");
+    setNet("");
+  };
 
   return (
     <div className="weekone_outer_container">
@@ -72,6 +104,11 @@ function WeekOne() {
               defaultValue="germany"
               onChange={(e) => {
                 setCountry(e.target.value);
+                setNet("");
+                setVat("");
+                setGross("");
+                setCustomVatRate("");
+                setVatRate(countryVatRate[e.target.value]);
               }}
             >
               <option value="germany">Germany</option>
@@ -88,7 +125,7 @@ function WeekOne() {
                 onChange={(e) => setNet(e.target.value)}
                 placeholder="Input net here"
               />
-              <label htmlFor="vat">Vat</label>
+              <label htmlFor="vat"> + Vat</label>
               <input
                 type="text"
                 name="vat"
@@ -96,7 +133,7 @@ function WeekOne() {
                 onChange={(e) => setVat(e.target.value)}
                 placeholder="Input vat here"
               />
-              <label htmlFor="gross">Gross</label>
+              <label htmlFor="gross">= Gross</label>
               <input
                 type="text"
                 name="gross"
@@ -105,41 +142,52 @@ function WeekOne() {
                 placeholder="Input Gross here"
               />
             </div>
+
             <div className="weekone_checkboxes">
               <p>3. Select VAT rate:</p>
-              <input
-                type="radio"
-                value={countryVatRate[country]}
-                name="vat_rate"
-                onChange={() => setCustomVatRate("")}
-                checked={
-                  customVatRate === "" ||
-                  customVatRate === countryVatRate[country]
-                }
-              />
-              <label htmlFor="vat_rate">{countryVatRate[country]} %</label>
+              <label htmlFor="vat_rate">
+                Default rate:
+                <input
+                  type="radio"
+                  value={countryVatRate[country]}
+                  name="vat_rate"
+                  onChange={(e) => {
+                    setVatRate(e.target.value);
+                    setCustomVatRate("");
+                  }}
+                  checked={customVatRate === "" || customVatRate === vatRate}
+                />
+                {vatRate} %
+              </label>
 
-              <label htmlFor="vat_rate"> Custom rate</label>
-              <input
-                type="radio"
-                name="vat_rate"
-                checked={
-                  customVatRate !== "" &&
-                  customVatRate !== countryVatRate[country]
-                }
-              />
-              <input
-                type="text"
-                name="vat_rate"
-                value={customVatRate}
-                onChange={(e) => setCustomVatRate(e.target.value)}
-                placeholder="Custom VAT rate"
-              />
+              <br></br>
+
+              <label htmlFor="vat_rate">
+                Custom rate:
+                <input
+                  type="radio"
+                  name="vat_rate"
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setCustomVatRate("");
+                    }
+                  }}
+                  checked={
+                    customVatRate !== "" &&
+                    customVatRate !== countryVatRate[country]
+                  }
+                />
+                <input
+                  type="text"
+                  name="custom_vat_rate"
+                  value={customVatRate}
+                  onChange={(e) => setCustomVatRate(e.target.value)}
+                  placeholder="Custom VAT rate"
+                />
+              </label>
             </div>
             <button type="submit">Calculate</button>
-            <button type="reset" value="reset">
-              Reset
-            </button>
+            <button onChange={emptyAllFields}>Reset</button>
           </form>
         </div>
       </div>
