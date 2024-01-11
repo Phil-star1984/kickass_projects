@@ -40,6 +40,7 @@ html {
 body {
   margin: 0;
   padding: 10px;
+  color: rgba(255, 255, 255, 0.87);
   /*   place-items: center;
   min-width: 320px;
   min-height: 100vh; */
@@ -53,6 +54,7 @@ select {
   border: 1px solid white;
   border-radius: 5px;
   padding: 8px;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 input[type="checkbox"] {
@@ -82,6 +84,8 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  margin-top: 2em;
+  margin-right: 0.5em;
 }
 button:hover {
   border-color: #646cff;

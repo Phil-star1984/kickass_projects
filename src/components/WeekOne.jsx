@@ -11,6 +11,15 @@ function WeekOne() {
 
   const countryVatRate = { germany: "19", poland: "23", france: "20" };
 
+  const emptyAllFields = (e) => {
+    //console.log("It works");
+
+    setVat("");
+    setVatRate("");
+    setGross("");
+    setNet("");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -63,7 +72,8 @@ function WeekOne() {
       }
 
       if ((vat && gross) || (vat && net && gross)) {
-        console.log("Wrong entries", emptyAllFields());
+        emptyAllFields();
+        alert("Wrong entries - please try again");
       }
     } else {
       // get VAT rate from country
@@ -80,20 +90,12 @@ function WeekOne() {
     // calculate missing fields
   }
 
-  const emptyAllFields = (e) => {
-    console.log("It works");
-    setVat("");
-    setVatRate("");
-    setGross("");
-    setNet("");
-  };
-
   return (
     <div className="weekone_outer_container">
       <div className="weekone_inner_container">
         <div className="weekone_text">
-          <h1>Country Tax Calculator</h1>
-          <p>Calculate your countries tax here</p>
+          <h1>Country VAT Tax Calculator</h1>
+          <p>Calculate your country's VAT tax here</p>
         </div>
         <div className="weekone_content">
           <form type="submit" className="submit_form" onSubmit={handleSubmit}>
@@ -117,15 +119,15 @@ function WeekOne() {
             </select>
             <div className="weekone_calculator">
               <p>2. Calculate tax:</p>
-              <label htmlFor="net">Net</label>
+              <label htmlFor="net">Net </label>
               <input
                 type="text"
                 name="net"
                 value={net}
                 onChange={(e) => setNet(e.target.value)}
-                placeholder="Input net here"
+                placeholder="Input net value here"
               />
-              <label htmlFor="vat"> + Vat</label>
+              <label htmlFor="vat"> + VAT </label>
               <input
                 type="text"
                 name="vat"
@@ -133,7 +135,7 @@ function WeekOne() {
                 onChange={(e) => setVat(e.target.value)}
                 placeholder="Input vat here"
               />
-              <label htmlFor="gross">= Gross</label>
+              <label htmlFor="gross"> = Gross </label>
               <input
                 type="text"
                 name="gross"
@@ -187,7 +189,7 @@ function WeekOne() {
               </label>
             </div>
             <button type="submit">Calculate</button>
-            <button onChange={emptyAllFields}>Reset</button>
+            <button onClick={emptyAllFields}>Reset</button>
           </form>
         </div>
       </div>
