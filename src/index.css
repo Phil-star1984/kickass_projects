@@ -47,12 +47,16 @@ body {
 
 input[type="text"],
 input[type="submit"],
-input[type="select"],
+input[type="number"],
 select {
   background-color: transparent;
   border: 1px solid white;
   border-radius: 5px;
   padding: 8px;
+  display: flex;
+  align-items: right;
+  box-sizing: border-box;
+  width: 300px;
 }
 
 input[type="checkbox"] {
@@ -81,6 +85,7 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
+  margin-right: 10px;
   transition: border-color 0.25s;
 }
 button:hover {
@@ -131,8 +136,7 @@ button:focus-visible {
 
 .weekone_inner_container {
   border: 2px solid rgb(255, 255, 255);
-  padding: 50px;
-
+  padding: 50px 100px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -140,8 +144,94 @@ button:focus-visible {
   justify-content: center;
 }
 
+.submit_form {
+  /* border: 2px solid red; */
+  margin-top: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.submit_form > * {
+  margin: 8px 0;
+}
+
+.calculate {
+  margin-top: 25px;
+}
+
+.weekone_calculator {
+  margin: 25px 0;
+}
+
+.weekone_checkboxes {
+  margin-bottom: 25px;
+}
+
 .weekone_text {
   margin-bottom: 40px;
+}
+
+.data_outer_container {
+  border: 2px solid white;
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 20px;
+  width: fit-content;
+  block-size: fit-content;
+}
+
+.data_inner_container {
+  /* margin-right: 10px; */
+  margin: 0;
+  padding: 0;
+}
+
+.csv_data_input {
+  display: flex;
+}
+
+/* .csv_data_input > * {
+  margin-right: 10px;
+} */
+
+.csv_form {
+  display: flex;
+}
+
+/* .csv_form > * {
+  margin-right: 10px;
+} */
+
+input.csv_input {
+  margin: 0px 10px;
+}
+
+table,
+th,
+td {
+  border: 1px solid;
+  padding: 4px 15px;
+  text-align: center;
+}
+
+th {
+  background-color: #1a1a1a;
+}
+
+table {
+  /* border: 1px solid red; */
+  /* width: 100%;
+  border-collapse: collapse;
+  box-sizing: border-box; */
+  margin-top: 30px;
+  border-collapse: collapse;
+}
+
+th:hover,
+td:hover {
+  background-color: yellow;
+  color: black;
 }
 
 /* @media (prefers-color-scheme: light) {
