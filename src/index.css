@@ -234,6 +234,45 @@ td:hover {
   color: black;
 }
 
+.weektwo_outer_container {
+  margin-top: 10px;
+  border: 2px solid white;
+  border-radius: 10px;
+  height: 100vh;
+  padding: 20px;
+}
+
+.weektwo_inner_container {
+  border: 2px solid rgb(255, 255, 255);
+  height: 600px;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(
+    7,
+    1fr
+  ); /* Erstellt 7 Spalten mit gleicher Breite */
+  grid-template-rows: repeat(5, 1fr); /* Erstellt 5 Zeilen mit gleicher Höhe */
+  gap: 10px; /* Optional: Abstand zwischen den Grid-Elementen */
+  padding: 10px;
+}
+
+.weektwo_item {
+  padding: 4px;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
+.weektwo_item:hover {
+  background-color: #535bf2;
+}
+.handle {
+  border: 2px solid white;
+  width: 140px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: rgb(76, 0, 104);
+}
+
 /* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
