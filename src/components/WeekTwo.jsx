@@ -1,6 +1,7 @@
 import React from "react";
+import { Resizable, ResizableBox } from "react-resizable";
 
-import Draggable from "react-draggable";
+import Draggable, { DraggableCore } from "react-draggable";
 
 function WeekTwo() {
   // Definieren Sie hier die Handler-Funktionen
@@ -31,13 +32,22 @@ function WeekTwo() {
         onDrag={handleDrag}
         onStop={handleStop}
       >
-        <div>
-          <div className="handle">
+        <ResizableBox width={200} height={200}>
+          <div
+            className="handle"
+            style={{
+              backgroundColor: "green",
+              width: "100%",
+              height: "100%",
+              borderRadius: "5px",
+              padding: "7px",
+            }}
+          >
             Drag this element
             <div>Task 01</div>
             <div>Task 02</div>
           </div>
-        </div>
+        </ResizableBox>
       </Draggable>
       <h1>Simple Project Planner</h1>
       <div className="weektwo_inner_container">
