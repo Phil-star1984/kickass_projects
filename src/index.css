@@ -242,9 +242,23 @@ td:hover {
   padding: 20px;
 }
 
+.weektwo_inner_big_container {
+  width: 100%;
+  display: flex;
+}
+
+.task_container {
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 10px;
+  padding: 10px;
+  width: 100px;
+  margin-right: 10px;
+}
+
 .weektwo_inner_container {
   border: 2px solid rgb(255, 255, 255);
   height: 600px;
+  width: 100%;
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(
@@ -271,6 +285,11 @@ td:hover {
   padding: 5px;
   border-radius: 5px; */
   background-color: rgb(76, 0, 104);
+  /*   width: 100%;
+  height: 100%; */
+  border-radius: 5px;
+  padding: 7px;
+  margin-top: 5px;
 }
 
 /* from Resizable */
