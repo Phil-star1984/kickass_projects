@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar.jsx";
-import WeekOne from "./components/WeekOne.jsx";
-import WeekTwo from "./components/WeekTwo.jsx";
+import WeekOne from "./components/WeekOnePiotr.jsx";
+import WeekTwo from "./components/WeekTwoPiotr.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
