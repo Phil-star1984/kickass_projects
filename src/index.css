@@ -13,10 +13,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  margin: 0;
+  padding: 10px;
+  height: 100vh;
+  /*   place-items: center;
+  min-width: 320px;
+  min-height: 100vh; */
+}
+
 h1 {
   font-size: 2em;
-  line-height: 0;
-  margin: 0.1;
+  line-height: 0.8;
+  margin: 0.6rem 0;
+}
+
+h2 {
+  margin: 0.6rem 0;
 }
 
 p {
@@ -35,14 +48,6 @@ a:hover {
 html {
   margin: 0;
   padding: 0;
-}
-
-body {
-  margin: 0;
-  padding: 10px;
-  /*   place-items: center;
-  min-width: 320px;
-  min-height: 100vh; */
 }
 
 input[type="text"],
@@ -128,7 +133,7 @@ button:focus-visible {
   margin-top: 10px;
   border: 2px solid white;
   border-radius: 10px;
-  height: 100vh;
+  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -242,9 +247,23 @@ td:hover {
   padding: 20px;
 }
 
+.weektwo_inner_big_container {
+  width: 100%;
+  display: flex;
+}
+
+.task_container {
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 10px;
+  padding: 10px;
+  width: 100px;
+  margin-right: 10px;
+}
+
 .weektwo_inner_container {
   border: 2px solid rgb(255, 255, 255);
   height: 600px;
+  width: 100%;
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(
@@ -271,6 +290,11 @@ td:hover {
   padding: 5px;
   border-radius: 5px; */
   background-color: rgb(76, 0, 104);
+  /*   width: 100%;
+  height: 100%; */
+  border-radius: 5px;
+  padding: 7px;
+  margin-top: 5px;
 }
 
 /* from Resizable */
@@ -339,6 +363,13 @@ td:hover {
 .react-resizable-handle-s {
   bottom: 0;
   transform: rotate(45deg);
+}
+
+.task_input {
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 4px;
+  background-color: transparent;
 }
 
 /* @media (prefers-color-scheme: light) {
