@@ -92,7 +92,7 @@ function WeekOne() {
     <div className="weekone_outer_container">
       <div className="weekone_inner_container">
         <div className="weekone_text">
-          <h1>Country Tax Calculator</h1>
+          <h1>Country Tax Calculator Phil</h1>
           <p>Calculate your countries tax here</p>
         </div>
         <div className="weekone_content">
