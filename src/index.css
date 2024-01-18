@@ -50,6 +50,16 @@ html {
   padding: 0;
 }
 
+.home_outer_container {
+  margin-top: 10px;
+  border: 2px solid white;
+  border-radius: 10px;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 input[type="text"],
 input[type="submit"],
 input[type="number"],
