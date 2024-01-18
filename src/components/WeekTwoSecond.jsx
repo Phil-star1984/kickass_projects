@@ -98,9 +98,10 @@ function WeekTwoSecond() {
       }}
     >
       <div>
-        <h1>Easy Weekly Planner</h1>
+        <h1>Easy Task Manager</h1>
         <input
-          placeholder="Add task"
+          className="task_input"
+          placeholder="Enter task here"
           style={{ height: "30px" }}
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
@@ -116,7 +117,9 @@ function WeekTwoSecond() {
         style={{
           display: "flex",
           justifyContent: "center",
-          height: "100%",
+          alignItems: "center",
+          flexWrap: "wrap",
+          height: "75vh",
           border: "2px solid white",
           borderRadius: "10px",
           marginTop: "10px",
