@@ -4,7 +4,9 @@ import { NavLink } from "react-router-dom";
 function NavBar() {
   return (
     <nav className="navbar_outer_container">
+      <NavLink to="/">
       <h1 className="navbar_logo">KickAss Projects</h1>
+      </NavLink>
       <ul className="navbar_navlinks">
         <li>
           <NavLink to="/weekone">Week 1</NavLink>
