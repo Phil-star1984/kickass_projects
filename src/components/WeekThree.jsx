@@ -3,7 +3,7 @@ import axios from "axios";
 import Papa from "papaparse";
 import { PushSpinner } from "react-spinners-kit";
 
-export default function CodeTest() {
+export default function WeekThree() {
   const [data, setData] = useState([]);
   const [urlCsv, setUrlCsv] = useState(
     "https://raw.githubusercontent.com/UDG-United-Digital-Group/frontend-junior-code-challenge-1/master/Artikel.csv"
@@ -12,6 +12,7 @@ export default function CodeTest() {
 
   // https://raw.githubusercontent.com/microsoft/arcticseals/master/data/raw.csv
   // https://raw.githubusercontent.com/UDG-United-Digital-Group/frontend-junior-code-challenge-1/master/Artikel.csv
+  // Example: https://gist.githubusercontent.com/rnirmal/e01acfdaf54a6f9b24e91ba4cae63518/raw/6b589a5c5a851711e20c5eb28f9d54742d1fe2dc/datasets.csv
 
   const getData = async (e) => {
     e.preventDefault();
