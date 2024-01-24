@@ -278,6 +278,19 @@ td:hover {
   padding: 20px;
 }
 
+.chart_container {
+  border: 1px solid white;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 180px;
+  height: 200px;
+  padding-bottom: 90px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 10px;
+
+}
+
 .weektwo_inner_big_container {
   width: 100%;
   display: flex;

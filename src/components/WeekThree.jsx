@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Papa from "papaparse";
 import { PushSpinner } from "react-spinners-kit";
+import { Chart, ArcElement } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+
+Chart.register(ArcElement);
 
 export default function WeekThree() {
   const [data, setData] = useState([]);
@@ -27,10 +31,28 @@ export default function WeekThree() {
   const [material, setMaterial] = useState("");
   const [countryOfOrigin, setCountryOfOrigin] = useState("");
   const [imageName, setImageName] = useState("");
+  const [genderCountsdata, setGenderCountsdata] = useState(null);
 
   // https://raw.githubusercontent.com/microsoft/arcticseals/master/data/raw.csv
   // https://raw.githubusercontent.com/UDG-United-Digital-Group/frontend-junior-code-challenge-1/master/Artikel.csv
   // Example: https://gist.githubusercontent.com/rnirmal/e01acfdaf54a6f9b24e91ba4cae63518/raw/6b589a5c5a851711e20c5eb28f9d54742d1fe2dc/datasets.csv
+
+  const chartData = {
+    labels: genderCountsdata
+      ? Object.keys(genderCountsdata || {})
+      : ["Herren", "Damen", "Kinder"], // Feste Labels
+    datasets: [
+      {
+        data: genderCountsdata
+          ? Object.keys(genderCountsdata).map(
+              (key) => genderCountsdata[key] || 0
+            )
+          : [10, 10, 10], // Standardwerte, wenn `genderCountsdata` nicht vorhanden ist
+        backgroundColor: ["#00d5ff", "#ff61e5", "#fff200"],
+        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+      },
+    ],
+  };
 
   const getData = async (e) => {
     e.preventDefault();
@@ -59,6 +81,7 @@ export default function WeekThree() {
           throw new Error("error parsing the csv data", error);
         },
       });
+
       setSuccessMessage("loading data successfully");
       setTimeout(() => setSuccessMessage(""), 5000);
     } catch (error) {
@@ -96,6 +119,9 @@ export default function WeekThree() {
   };
 
   useEffect(() => {
+    if (data.length > 0) {
+      countByGender();
+    }
     console.log("actual data: ", data);
   }, [data]);
 
@@ -130,6 +156,17 @@ export default function WeekThree() {
     setData(newData);
   };
 
+  const countByGender = (e) => {
+    /* e.preventDefault(); */
+    const genderCount = data.reduce((acc, item) => {
+      acc[item.Geschlecht] = (acc[item.Geschlecht] || 0) + 1;
+      /* console.log(acc); */
+      return acc;
+    }, {});
+    console.log(genderCount);
+    setGenderCountsdata(genderCount);
+  };
+
   return (
     <div className="data_outer_container">
       <div className="data_inner_container">
@@ -149,9 +186,13 @@ export default function WeekThree() {
             ></input>
             <button onClick={getData}>Get Data</button>
           </form>
+          {/* <button onClick={countByGender}>Count by gender</button> */}
           {renderMessage()}
         </div>
-
+        <div className="chart_container">
+          <h2>Products per Gender</h2>
+          <Doughnut data={chartData} />
+        </div>
         <div className="newinput_and_table">
           <form onSubmit={addData} className="newinput_form">
             <label htmlFor="mainArticleNo">Main article No.</label>
