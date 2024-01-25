@@ -4,7 +4,6 @@ import Papa from "papaparse";
 import { PushSpinner } from "react-spinners-kit";
 import { Chart, ArcElement } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-
 Chart.register(ArcElement);
 
 export default function WeekThree() {
@@ -31,13 +30,14 @@ export default function WeekThree() {
   const [material, setMaterial] = useState("");
   const [countryOfOrigin, setCountryOfOrigin] = useState("");
   const [imageName, setImageName] = useState("");
-  const [genderCountsdata, setGenderCountsdata] = useState(null);
+  const [genderCountsdata, setGenderCountsdata] = useState("");
+  const [manufacturerCountsdata, setManufacturerCountsdata] = useState("")
 
   // https://raw.githubusercontent.com/microsoft/arcticseals/master/data/raw.csv
   // https://raw.githubusercontent.com/UDG-United-Digital-Group/frontend-junior-code-challenge-1/master/Artikel.csv
   // Example: https://gist.githubusercontent.com/rnirmal/e01acfdaf54a6f9b24e91ba4cae63518/raw/6b589a5c5a851711e20c5eb28f9d54742d1fe2dc/datasets.csv
 
-  const chartData = {
+  const productsPerGenderChart = {
     labels: genderCountsdata
       ? Object.keys(genderCountsdata || {})
       : ["Herren", "Damen", "Kinder"], // Feste Labels
@@ -45,11 +45,28 @@ export default function WeekThree() {
       {
         data: genderCountsdata
           ? Object.keys(genderCountsdata).map(
-              (key) => genderCountsdata[key] || 0
+              (key) => genderCountsdata[key] || 10
             )
           : [10, 10, 10], // Standardwerte, wenn `genderCountsdata` nicht vorhanden ist
-        backgroundColor: ["#00d5ff", "#ff61e5", "#fff200"],
-        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+        backgroundColor: ["#00d5ff", "#ff61e5", "#fff200", "#ff00ae"],
+        hoverBackgroundColor: ["#ffffff"],
+      },
+    ],
+  };
+
+  const productsPerManufacturerChart = {
+    labels: manufacturerCountsdata
+      ? Object.keys(manufacturerCountsdata || {})
+      : ["Brand 1", "Brand 2", "Brand 3"], // Feste Labels
+    datasets: [
+      {
+        data: manufacturerCountsdata
+          ? Object.keys(manufacturerCountsdata).map(
+              (key) => manufacturerCountsdata[key] || 10
+            )
+          : [10, 10, 10], // Standardwerte, wenn `genderCountsdata` nicht vorhanden ist
+        backgroundColor: ["#00d5ff", "#ff9100", "#3cff00", "#a200ff", "#004cff"],
+        hoverBackgroundColor: ["#ffffff"],
       },
     ],
   };
@@ -75,6 +92,7 @@ export default function WeekThree() {
         header: true,
         complete: (result) => {
           setData(result.data);
+
           /* console.log(result.data); */
         },
         error: (error) => {
@@ -98,29 +116,38 @@ export default function WeekThree() {
     setData((prev) => [
       ...prev,
       {
-        Haptartikelnr: mainArticleNo,
+        Hauptartikelnr: mainArticleNo,
         Artikelname: articleName,
-        Manufacturer: manufacturer,
-        Description: description,
-        MaterialInformation: materialInformation,
-        Gender: gender,
-        ProductType: productType,
-        Sleeves: sleeves,
-        Leg: leg,
-        Collar: collar,
-        Manufacturing: manufacturing,
-        PocketStyle: pocketStyle,
-        Grammar: grammar,
+        Hersteller: manufacturer,
+        Beschreibung: description,
+        Materialangaben: materialInformation,
+        Geschlecht: gender,
+        Produktart: productType,
+        Ärmel: sleeves,
+        Bein: leg,
+        Kragen: collar,
+        Herstellung: manufacturing,
+        Taschenart: pocketStyle,
+        Grammatur: grammar,
         Material: material,
-        CountryOfOrigin: countryOfOrigin,
-        ImageName: imageName,
+        Ursprungsland: countryOfOrigin,
+        Bildname: imageName,
       },
     ]);
   };
 
   useEffect(() => {
+    const savedData = localStorage.getItem("csv_data");
+    if (savedData) {
+      setData(JSON.parse(savedData));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("csv_data", JSON.stringify(data));
     if (data.length > 0) {
       countByGender();
+      countByManufacturer()
     }
     console.log("actual data: ", data);
   }, [data]);
@@ -157,14 +184,55 @@ export default function WeekThree() {
   };
 
   const countByGender = (e) => {
-    /* e.preventDefault(); */
+
     const genderCount = data.reduce((acc, item) => {
       acc[item.Geschlecht] = (acc[item.Geschlecht] || 0) + 1;
       /* console.log(acc); */
       return acc;
     }, {});
-    console.log(genderCount);
+    console.log("Count by gender: ", genderCount);
     setGenderCountsdata(genderCount);
+  };
+
+  const countByManufacturer = (e) => {
+    const manufacturerCount = data.reduce((acc, item) => {
+      acc[item.Hersteller] = (acc[item.Hersteller] || 0) + 1;
+      /* console.log(acc); */
+      return acc;
+    }, {});
+    console.log("Count by manufacturer: ", manufacturerCount);
+    setManufacturerCountsdata(manufacturerCount);
+  };
+
+  /* const exportCSV = (e) => {
+    e.preventDefault();
+    const csv = Papa.unparse(data); // 'data' ist Ihr Array von Objekten
+    console.log(csv); // Zeigt die CSV-String-Representation Ihrer Daten
+  }; */
+
+  const downloadCSV = (csv, filename) => {
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+
+    if (navigator.msSaveBlob) {
+      // Für IE 10+
+      navigator.msSaveBlob(blob, filename);
+    } else {
+      const url = URL.createObjectURL(blob);
+      link.href = url;
+      link.download = filename;
+      link.style.visibility = "hidden";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
+  const handleDownloadCSV = (e) => {
+    e.preventDefault();
+    /* console.log("Before parsing data: ", data); */
+    const csv = Papa.unparse(data);
+    downloadCSV(csv, "exported-data.csv");
   };
 
   return (
@@ -187,12 +255,56 @@ export default function WeekThree() {
             <button onClick={getData}>Get Data</button>
           </form>
           {/* <button onClick={countByGender}>Count by gender</button> */}
+          <button onClick={handleDownloadCSV}>Download CSV</button>
           {renderMessage()}
         </div>
-        <div className="chart_container">
-          <h2>Products per Gender</h2>
-          <Doughnut data={chartData} />
+        <div className="chart_container_outer">
+          <div className="chart_container">
+            <h2>Products per Gender</h2>
+            <Doughnut data={productsPerGenderChart} />
+            <p>
+              {genderCountsdata &&
+                Object.keys(genderCountsdata)[0] +
+                  ": " +
+                  Object.values(genderCountsdata)[0]}
+            </p>
+            <p>
+              {genderCountsdata &&
+                Object.keys(genderCountsdata)[1] +
+                  ": " +
+                  Object.values(genderCountsdata)[1]}
+            </p>
+            <p>
+              {genderCountsdata &&
+                Object.keys(genderCountsdata)[2] +
+                  ": " +
+                  Object.values(genderCountsdata)[2]}
+            </p>
+          </div>
+          <div className="chart_container">
+            <h2>Products per Manufacturer</h2>
+            <Doughnut data={productsPerManufacturerChart} />
+            <p>
+              {manufacturerCountsdata &&
+                Object.keys(manufacturerCountsdata)[0] +
+                  ": " +
+                  Object.values(manufacturerCountsdata)[0]}
+            </p>
+            <p>
+              {manufacturerCountsdata &&
+                Object.keys(manufacturerCountsdata)[1] +
+                  ": " +
+                  Object.values(manufacturerCountsdata)[1]}
+            </p>
+            <p>
+              {manufacturerCountsdata &&
+                Object.keys(manufacturerCountsdata)[2] +
+                  ": " +
+                  Object.values(manufacturerCountsdata)[2]}
+            </p>
+          </div>
         </div>
+
         <div className="newinput_and_table">
           <form onSubmit={addData} className="newinput_form">
             <label htmlFor="mainArticleNo">Main article No.</label>
