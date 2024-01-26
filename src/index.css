@@ -192,18 +192,22 @@ button:focus-visible {
   border-radius: 10px;
   margin-top: 10px;
   padding: 20px;
-  width: fit-content;
-  block-size: fit-content;
+
+  width: 100%;
 }
 
 .data_inner_container {
   /* margin-right: 10px; */
   margin: 0;
   padding: 0;
+
+  width: 100%;
 }
 
 .csv_data_input {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* .csv_data_input > * {
@@ -235,11 +239,35 @@ input.csv_input {
 
 .newinput_and_table {
   display: flex;
-  margin-top: 30px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.newinput_form_outer {
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-right: 20px;
+  display: flex;
+  width: 20%;
 }
 
 .newinput_form input {
-  width: 200px;
+  min-width: 70px;
+  max-width: 200px;
+}
+
+.table_container {
+  border: 1px solid white;
+  border-radius: 10px;
+  max-height: 1008px; /* oder die gewünschte Höhe */
+  overflow-y: auto; /* aktiviert vertikales Scrollen, wenn der Inhalt höher als der Container ist */
+  width: 80%; /* passt die Breite an das Elternelement an */
+  background-color: #000000;
+}
+
+.table_container:hover {
+  background-color: #121212b0;
 }
 
 table,
@@ -259,14 +287,13 @@ table {
   /* width: 100%;
   border-collapse: collapse;
   box-sizing: border-box; */
-  margin-top: 23px;
-  margin-left: 30px;
+  margin: 30px;
   border-collapse: collapse;
 }
 
 th:hover,
 td:hover {
-  background-color: rgb(53, 0, 39);
+  background-color: rgb(50, 50, 50);
   /* color: black; */
 }
 
@@ -279,6 +306,7 @@ td:hover {
 }
 .chart_container_outer {
   display: flex;
+  /* width: 1000px; */
 }
 
 .chart_container {
@@ -286,12 +314,41 @@ td:hover {
   margin-top: 30px;
   margin-bottom: 10px;
   margin-right: 20px;
-  width: 180px;
-  height: 270px;
-  padding-bottom: 90px;
+  border-radius: 10px;
+  width: 33%;
+
+  /*
+  height: 470px;
+  padding-bottom: 30px;
   padding-left: 20px;
   padding-right: 20px;
+   */
+}
+
+.bar_horizontal_container {
+  border: 1px solid white;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  /* margin-left: 20px; */
   border-radius: 10px;
+  width: 77%;
+}
+
+.bar_container {
+  border: 1px solid white;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0px 20px;
+}
+
+.polararea_container {
+  border: 1px solid white;
+  border-radius: 10px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  width: 33%;
+  padding: 0px 20px;
 }
 
 .weektwo_inner_big_container {
