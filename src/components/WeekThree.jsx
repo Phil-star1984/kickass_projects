@@ -3,6 +3,7 @@ import axios from "axios";
 import Papa from "papaparse";
 import { PushSpinner } from "react-spinners-kit";
 import Charts from "./Charts.jsx";
+import Footer from "./Footer.jsx";
 
 export default function WeekThree() {
   const [data, setData] = useState([]);
@@ -197,8 +198,6 @@ export default function WeekThree() {
           <button onClick={handleDownloadCSV}>Download CSV</button>
           {renderMessage()}
         </div>
-
-        <Charts data={data} />
 
         <div className="newinput_and_table">
           <div className="newinput_form_outer">
@@ -408,6 +407,8 @@ export default function WeekThree() {
             </table>
           </div>
         </div>
+        <Charts data={data} />
+        
       </div>
     </div>
   );
