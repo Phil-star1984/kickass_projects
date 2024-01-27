@@ -8,6 +8,7 @@ import WeekOneTest from "./components/WeekOneTest.jsx";
 import WeekTwo from "./components/WeekTwo.jsx";
 import WeekTwoSecond from "./components/WeekTwoSecond.jsx";
 import WeekThree from "./components/WeekThree.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -22,6 +23,7 @@ function App() {
         <Route path="/weektwo" element={<WeekTwoSecond />} />
         <Route path="/weekthree" element={<WeekThree />} />
       </Routes>
+      <Footer />
     </>
   );
 }

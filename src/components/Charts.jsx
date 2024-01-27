@@ -78,50 +78,45 @@ function Charts({ data }) {
     setGenderCountsdata(genderCount);
   };
 
-
-
   const countByManufacturer = () => {
     // Zählen Sie, wie oft jedes Material vorkommt
     const manufacturerCount = data.reduce((acc, item) => {
-      const key = item.Hersteller || 'Unbekannt'; // Behandeln Sie fehlende Materialien als 'Unbekannt'
+      const key = item.Hersteller || "Unbekannt"; // Behandeln Sie fehlende Materialien als 'Unbekannt'
       acc[key] = (acc[key] || 0) + 1;
       return acc;
     }, {});
-  
+
     // Filtern Sie die Ergebnisse, um nur Materialien mit mehr als 5 Vorkommen zu behalten
     const filteredManufacturerCount = Object.keys(manufacturerCount)
-      .filter(key => key && manufacturerCount[key] >= 20) // Nicht-leere Schlüssel und Werte über 10
+      .filter((key) => key && manufacturerCount[key] >= 20) // Nicht-leere Schlüssel und Werte über 10
       .reduce((acc, key) => {
         acc[key] = manufacturerCount[key];
         return acc;
       }, {});
-  
+
     console.log("Count by manufacturer: ", filteredManufacturerCount);
     setManufacturerCountsdata(filteredManufacturerCount);
   };
 
-
   const countByMaterial = () => {
     // Zählen Sie, wie oft jedes Material vorkommt
     const materialCount = data.reduce((acc, item) => {
-      const key = item.Material || 'Unbekannt'; // Behandeln Sie fehlende Materialien als 'Unbekannt'
+      const key = item.Material || "Unbekannt"; // Behandeln Sie fehlende Materialien als 'Unbekannt'
       acc[key] = (acc[key] || 0) + 1;
       return acc;
     }, {});
-  
+
     // Filtern Sie die Ergebnisse, um nur Materialien mit mehr als 5 Vorkommen zu behalten
     const filteredMaterialCount = Object.keys(materialCount)
-      .filter(key => key && materialCount[key] >= 10) // Nicht-leere Schlüssel und Werte über 10
+      .filter((key) => key && materialCount[key] >= 10) // Nicht-leere Schlüssel und Werte über 10
       .reduce((acc, key) => {
         acc[key] = materialCount[key];
         return acc;
       }, {});
-  
+
     console.log("Count by material: ", filteredMaterialCount);
     setMaterialCountsdata(filteredMaterialCount);
   };
-
- 
 
   useEffect(() => {
     if (data.length > 0) {
@@ -133,35 +128,34 @@ function Charts({ data }) {
   }, [data]);
 
   return (
-    <div>
-      <div className="chart_container_outer">
-        <div className="chart_container">
-          <h2 style={{ textAlign: "center" }}>Products per Gender</h2>
-          <Doughnut
-            data={productsPerGenderChart}
-            options={{
-              layout: {
-                padding: 0,
+    <div className="chart_container_mostouter">
+      <div className="chart_container">
+        <h2 style={{ textAlign: "center" }}>Products per Gender</h2>
+        <Doughnut
+          data={productsPerGenderChart}
+          options={{
+            layout: {
+              padding: 0,
+            },
+            plugins: {
+              responsive: true,
+              title: {
+                display: false,
+                text: "PRODUCTS PER GENDER",
               },
-              plugins: {
-                responsive: true,
-                title: {
-                  display: false,
-                  text: "PRODUCTS PER GENDER",
-                },
 
-                legend: {
-                  display: true,
-                  /* position: "bottom", */
+              legend: {
+                display: true,
+                /* position: "bottom", */
 
-                  labels: {
-                    padding: 8,
-                  },
+                labels: {
+                  padding: 8,
                 },
               },
-            }}
-          />
-          {/* <p>
+            },
+          }}
+        />
+        {/* <p>
           {genderCountsdata &&
             Object.keys(genderCountsdata)[0] +
               ": " +
@@ -173,9 +167,9 @@ function Charts({ data }) {
               ": " +
               Object.values(genderCountsdata)[1]}
         </p> */}
-        </div>
+      </div>
 
-        {/* <div className="polararea_container">
+      {/* <div className="polararea_container">
           <h2 style={{ textAlign: "center" }}>Material Used</h2>
           <PolarArea
             data={materialPolarArea}
@@ -202,12 +196,12 @@ function Charts({ data }) {
             }}
           />
         </div> */}
-        <div className="bar_horizontal_container">
-        <h2 style={{ textAlign: "center" }}>Products per Manufacturer</h2>
+      <div className="bar_horizontal_container">
+        <h2 style={{ textAlign: "center" }}>Products per Material</h2>
         <Bar
           data={materialPolarArea}
           options={{
-            indexAxis: 'y',
+            indexAxis: "y",
             plugins: {
               responsive: true,
               title: {
@@ -220,7 +214,6 @@ function Charts({ data }) {
             },
           }}
         />
-      </div>
       </div>
       <div className="bar_container">
         <h2 style={{ textAlign: "center" }}>Products per Manufacturer</h2>
