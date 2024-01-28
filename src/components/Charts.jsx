@@ -24,10 +24,16 @@ function Charts({ data }) {
               (key) => genderCountsdata[key] || 10
             )
           : [10, 10, 10], // Standardwerte, wenn `genderCountsdata` nicht vorhanden ist
-        backgroundColor: ["#00d5ff", "#ff61e5", "#fff200", "#ff00ae"],
+          backgroundColor: [
+            "rgb(255, 99, 132)",
+            "rgb(75, 192, 192)",
+            "rgb(255, 205, 86)",
+            "rgb(201, 203, 207)",
+            "rgb(54, 162, 235)",
+          ],
         borderColor: ["black"],
         borderWidth: 1.5,
-        hoverBackgroundColor: ["#ffffff"],
+        /* hoverBackgroundColor: ["#ffffff"], */
       },
     ],
     options: {},
@@ -44,8 +50,14 @@ function Charts({ data }) {
               (key) => manufacturerCountsdata[key] || 10
             )
           : [10, 10, 10], // Standardwerte, wenn `genderCountsdata` nicht vorhanden ist
-        backgroundColor: ["#00d5ff", "#ff61e5", "#fff200", "#ff00ae"],
-        hoverBackgroundColor: ["#ffffff"],
+          backgroundColor: [
+            "rgb(255, 99, 132)",
+            "rgb(75, 192, 192)",
+            "rgb(255, 205, 86)",
+            "rgb(201, 203, 207)",
+            "rgb(54, 162, 235)",
+          ],
+        /* hoverBackgroundColor: ["#ffffff"], */
       },
     ],
     options: {},
@@ -55,7 +67,7 @@ function Charts({ data }) {
     labels: Object.keys(materialCountsdata),
     datasets: [
       {
-        label: "My First Dataset",
+        label: "Products per Material",
         data: Object.values(materialCountsdata),
         backgroundColor: [
           "rgb(255, 99, 132)",
