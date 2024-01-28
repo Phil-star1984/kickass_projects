@@ -24,13 +24,13 @@ function Charts({ data }) {
               (key) => genderCountsdata[key] || 10
             )
           : [10, 10, 10], // Standardwerte, wenn `genderCountsdata` nicht vorhanden ist
-          backgroundColor: [
-            "rgb(255, 99, 132)",
-            "rgb(75, 192, 192)",
-            "rgb(255, 205, 86)",
-            "rgb(201, 203, 207)",
-            "rgb(54, 162, 235)",
-          ],
+        backgroundColor: [
+          "#1a535c",
+          "#4ecdc4",
+          "#f7fff7",
+          "#ff6b6b",
+          "#ffe66d",
+        ],
         borderColor: ["black"],
         borderWidth: 1.5,
         /* hoverBackgroundColor: ["#ffffff"], */
@@ -50,13 +50,13 @@ function Charts({ data }) {
               (key) => manufacturerCountsdata[key] || 10
             )
           : [10, 10, 10], // Standardwerte, wenn `genderCountsdata` nicht vorhanden ist
-          backgroundColor: [
-            "rgb(255, 99, 132)",
-            "rgb(75, 192, 192)",
-            "rgb(255, 205, 86)",
-            "rgb(201, 203, 207)",
-            "rgb(54, 162, 235)",
-          ],
+        backgroundColor: [
+          "#1a535c",
+          "#4ecdc4",
+          "#f7fff7",
+          "#ff6b6b",
+          "#ffe66d",
+        ],
         /* hoverBackgroundColor: ["#ffffff"], */
       },
     ],
@@ -70,12 +70,26 @@ function Charts({ data }) {
         label: "Products per Material",
         data: Object.values(materialCountsdata),
         backgroundColor: [
+          "#1a535c",
+          "#4ecdc4",
+          "#f7fff7",
+          "#ff6b6b",
+          "#ffe66d",
+        ],
+        /* backgroundColor: [
+          "#ffb2e6",
+          "#d972ff",
+          "#8447ff",
+          "#8cffda",
+          "#ffffe8",
+        ], */
+        /* backgroundColor: [
           "rgb(255, 99, 132)",
           "rgb(75, 192, 192)",
           "rgb(255, 205, 86)",
           "rgb(201, 203, 207)",
           "rgb(54, 162, 235)",
-        ],
+        ], */
       },
     ],
   };
