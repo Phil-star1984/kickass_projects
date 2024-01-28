@@ -541,6 +541,11 @@ td:hover {
   }
 }
 
+.footer_container_outer {
+  margin-top: 20px;
+  margin-bottom: 70px;
+}
+
 /* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
