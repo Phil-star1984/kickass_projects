@@ -101,6 +101,7 @@ export default function WeekThree() {
   };
 
   useEffect(() => {
+    getData();
     const savedData = localStorage.getItem("csv_data");
     if (savedData) {
       setData(JSON.parse(savedData));
@@ -408,7 +409,6 @@ export default function WeekThree() {
           </div>
         </div>
         <Charts data={data} />
-        
       </div>
     </div>
   );
