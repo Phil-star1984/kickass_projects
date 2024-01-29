@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Chart, ArcElement, Title, CategoryScale, Colors } from "chart.js";
-
-import { Doughnut, Bar, PolarArea } from "react-chartjs-2";
+import { Doughnut, Bar } from "react-chartjs-2";
 import "chart.js/auto";
 
 Chart.register(ArcElement, Title, CategoryScale, Colors);
@@ -13,17 +12,14 @@ function Charts({ data }) {
 
   /* console.log(Object.keys(materialCountsdata)); */
 
+  // handle data for chart js package
   const productsPerGenderChart = {
     labels: genderCountsdata
-      ? Object.keys(genderCountsdata || {})
-      : ["Herren", "Damen", "Kinder"], // Feste Labels
+      ? Object.keys(genderCountsdata)
+      : ["Herren", "Damen", "Kinder"], // fallback labels
     datasets: [
       {
-        data: genderCountsdata
-          ? Object.keys(genderCountsdata).map(
-              (key) => genderCountsdata[key] || 10
-            )
-          : [10, 10, 10], // Standardwerte, wenn `genderCountsdata` nicht vorhanden ist
+        data: genderCountsdata ? Object.values(genderCountsdata) : [10, 10, 10], // fallback values if no `genderCountsdata` available
         backgroundColor: [
           "#1a535c",
           "#4ecdc4",
@@ -41,15 +37,13 @@ function Charts({ data }) {
 
   const productsPerManufacturerBar = {
     labels: manufacturerCountsdata
-      ? Object.keys(manufacturerCountsdata || {})
-      : ["Brand 1", "Brand 2", "Brand 3"], // Feste Labels
+      ? Object.keys(manufacturerCountsdata)
+      : ["Brand 1", "Brand 2", "Brand 3"], // fallback labels
     datasets: [
       {
         data: manufacturerCountsdata
-          ? Object.keys(manufacturerCountsdata).map(
-              (key) => manufacturerCountsdata[key] || 10
-            )
-          : [10, 10, 10], // Standardwerte, wenn `genderCountsdata` nicht vorhanden ist
+          ? Object.values(manufacturerCountsdata)
+          : [10, 10, 10], // fallback values if no `manufacturerCountsdata` available
         backgroundColor: [
           "#1a535c",
           "#4ecdc4",
@@ -63,12 +57,16 @@ function Charts({ data }) {
     options: {},
   };
 
-  const materialPolarArea = {
-    labels: Object.keys(materialCountsdata),
+  const materialsPerProductBar = {
+    labels: materialCountsdata
+      ? Object.keys(materialCountsdata)
+      : ["Material 1", "Material 2", "Material 3"],
     datasets: [
       {
         label: "Products per Material",
-        data: Object.values(materialCountsdata),
+        data: materialCountsdata
+          ? Object.values(materialCountsdata)
+          : [10, 10, 10],
         backgroundColor: [
           "#1a535c",
           "#4ecdc4",
@@ -94,6 +92,7 @@ function Charts({ data }) {
     ],
   };
 
+  // create gender, manufacturer and material charts
   const countByGender = () => {
     const genderCount = data.reduce((acc, item) => {
       acc[item.Geschlecht] = (acc[item.Geschlecht] || 0) + 1;
@@ -105,16 +104,16 @@ function Charts({ data }) {
   };
 
   const countByManufacturer = () => {
-    // Zählen Sie, wie oft jedes Material vorkommt
+    // count how many products per manufacturerl exist in csv
     const manufacturerCount = data.reduce((acc, item) => {
-      const key = item.Hersteller || "Unbekannt"; // Behandeln Sie fehlende Materialien als 'Unbekannt'
+      const key = item.Hersteller || "Unbekannt";
       acc[key] = (acc[key] || 0) + 1;
       return acc;
     }, {});
 
-    // Filtern Sie die Ergebnisse, um nur Materialien mit mehr als 5 Vorkommen zu behalten
+    // for aesthetic reasons: filter for manufacturers with count >= 20
     const filteredManufacturerCount = Object.keys(manufacturerCount)
-      .filter((key) => key && manufacturerCount[key] >= 20) // Nicht-leere Schlüssel und Werte über 10
+      .filter((key) => key && manufacturerCount[key] >= 20)
       .reduce((acc, key) => {
         acc[key] = manufacturerCount[key];
         return acc;
@@ -125,16 +124,16 @@ function Charts({ data }) {
   };
 
   const countByMaterial = () => {
-    // Zählen Sie, wie oft jedes Material vorkommt
+    // count how many products per material exist in csv
     const materialCount = data.reduce((acc, item) => {
-      const key = item.Material || "Unbekannt"; // Behandeln Sie fehlende Materialien als 'Unbekannt'
+      const key = item.Material || "Unbekannt";
       acc[key] = (acc[key] || 0) + 1;
       return acc;
     }, {});
 
-    // Filtern Sie die Ergebnisse, um nur Materialien mit mehr als 5 Vorkommen zu behalten
+    // for aesthetic reasons: filter for materials with count >= 10
     const filteredMaterialCount = Object.keys(materialCount)
-      .filter((key) => key && materialCount[key] >= 10) // Nicht-leere Schlüssel und Werte über 10
+      .filter((key) => key && materialCount[key] >= 10)
       .reduce((acc, key) => {
         acc[key] = materialCount[key];
         return acc;
@@ -144,9 +143,10 @@ function Charts({ data }) {
     setMaterialCountsdata(filteredMaterialCount);
   };
 
+  // update all charts on data change
   useEffect(() => {
     if (data.length > 0) {
-      /* console.log("Data Charts Component: ", data); */
+      /* console.log("Data charts component: ", data); */
       countByGender();
       countByManufacturer();
       countByMaterial();
@@ -225,7 +225,7 @@ function Charts({ data }) {
       <div className="bar_horizontal_container">
         <h2 style={{ textAlign: "center" }}>Products per Material</h2>
         <Bar
-          data={materialPolarArea}
+          data={materialsPerProductBar}
           options={{
             indexAxis: "y",
             plugins: {
