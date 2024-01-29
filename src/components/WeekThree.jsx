@@ -100,28 +100,23 @@ export default function WeekThree() {
     ]);
   };
 
+  /* if there is data in local storage use it, 
+  if not get data from public csv/github raw */
+
   useEffect(() => {
-    getData();
     const savedData = localStorage.getItem("csv_data");
     if (savedData) {
       setData(JSON.parse(savedData));
+    } else {
+      getData();
     }
   }, []);
 
+  // save (manipulated) data in local storage
   useEffect(() => {
     localStorage.setItem("csv_data", JSON.stringify(data));
-
     console.log("actual data: ", data);
   }, [data]);
-
-  const renderTableHeaders = () => {
-    /* console.log(Object.keys(data[0])); */
-    if (data.length > 0) {
-      return Object.keys(data[0]).map((key, index) => (
-        <th key={index}>{key}</th>
-      ));
-    }
-  };
 
   const renderMessage = () => {
     if (successMessage) {
@@ -133,6 +128,17 @@ export default function WeekThree() {
     return null;
   };
 
+  //create table out of headers and table body
+  const renderTableHeaders = () => {
+    /* console.log(Object.keys(data[0])); */
+    if (data.length > 0) {
+      return Object.keys(data[0]).map((key, index) => (
+        <th key={index}>{key}</th>
+      ));
+    }
+  };
+
+  // make rows editable with edit button on row end
   const handleEditChange = (e, rowIndex, columnName) => {
     const newData = [...data];
     newData[rowIndex][columnName] = e.target.value;
@@ -151,6 +157,7 @@ export default function WeekThree() {
     console.log(csv); // Zeigt die CSV-String-Representation Ihrer Daten
   }; */
 
+  // make data downloadable
   const downloadCSV = (csv, filename) => {
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
