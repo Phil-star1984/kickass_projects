@@ -81,13 +81,6 @@ function Charts({ data }) {
           "#8cffda",
           "#ffffe8",
         ], */
-        /* backgroundColor: [
-          "rgb(255, 99, 132)",
-          "rgb(75, 192, 192)",
-          "rgb(255, 205, 86)",
-          "rgb(201, 203, 207)",
-          "rgb(54, 162, 235)",
-        ], */
       },
     ],
   };
@@ -99,7 +92,7 @@ function Charts({ data }) {
       /* console.log(acc); */
       return acc;
     }, {});
-    console.log("Count by gender: ", genderCount);
+    /* console.log("Count by gender: ", genderCount); */
     setGenderCountsdata(genderCount);
   };
 
@@ -119,7 +112,7 @@ function Charts({ data }) {
         return acc;
       }, {});
 
-    console.log("Count by manufacturer: ", filteredManufacturerCount);
+    /* console.log("Count by manufacturer: ", filteredManufacturerCount); */
     setManufacturerCountsdata(filteredManufacturerCount);
   };
 
@@ -139,7 +132,7 @@ function Charts({ data }) {
         return acc;
       }, {});
 
-    console.log("Count by material: ", filteredMaterialCount);
+    /* console.log("Count by material: ", filteredMaterialCount); */
     setMaterialCountsdata(filteredMaterialCount);
   };
 

@@ -115,7 +115,7 @@ export default function WeekThree() {
   // save (manipulated) data in local storage
   useEffect(() => {
     localStorage.setItem("csv_data", JSON.stringify(data));
-    console.log("actual data: ", data);
+    /* console.log("actual data: ", data); */
   }, [data]);
 
   const renderMessage = () => {
