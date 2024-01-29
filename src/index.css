@@ -143,6 +143,8 @@ button:focus-visible {
 
 .weekone_outer_container {
   margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
   border: 2px solid white;
   border-radius: 10px;
   height: 90vh;
@@ -187,6 +189,11 @@ button:focus-visible {
 
 .weekone_text {
   margin-bottom: 40px;
+}
+
+.taskmanager_outer_container {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .data_outer_container {
