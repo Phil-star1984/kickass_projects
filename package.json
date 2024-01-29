@@ -2,7 +2,6 @@
   "name": "country_tax_calculator",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://phil-star1984.github.io/kickass_projects",
   "type": "module",
   "scripts": {
     "dev": "vite",
