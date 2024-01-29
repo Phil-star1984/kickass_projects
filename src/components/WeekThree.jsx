@@ -35,8 +35,7 @@ export default function WeekThree() {
   // Example: https://gist.githubusercontent.com/rnirmal/e01acfdaf54a6f9b24e91ba4cae63518/raw/6b589a5c5a851711e20c5eb28f9d54742d1fe2dc/datasets.csv
   // Example Titanic Data: https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv
 
-  const getData = async (e) => {
-    e.preventDefault();
+  const getData = async () => {
     setIsLoading(true);
     setErrorMessage("");
     setSuccessMessage("");
