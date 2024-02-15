@@ -29,8 +29,7 @@ Ich setze in meinem Projekt die folgenden 3rd Party Libraries ein:
 ---
 
 Das Projekt Deployment auf Vercel ist zu finden unter:
-https://kickass-projects.vercel.app/ .
-Hier bitte über die NavBar zu "WeekThree" navigieren.
+https://kickass-projects.vercel.app/weekthree
 
 Remote Github Repository inkl. der "Aufgabenergebnis.md" ist zu finden unter:
 https://github.com/Phil-star1984/kickass_projects .
