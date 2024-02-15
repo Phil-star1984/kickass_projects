@@ -3,7 +3,6 @@ import axios from "axios";
 import Papa from "papaparse";
 import { PushSpinner } from "react-spinners-kit";
 import Charts from "./Charts.jsx";
-import Footer from "./Footer.jsx";
 
 export default function WeekThree() {
   const [data, setData] = useState([]);
@@ -46,10 +45,6 @@ export default function WeekThree() {
       if (!response.data) {
         throw new Error("could not get data!");
       }
-      /* if (response.status == 200) {
-        console.log("success downloading data!");
-        console.log("Unparsed Response: ", response);
-      } */
 
       Papa.parse(response.data, {
         header: true,
@@ -150,12 +145,6 @@ export default function WeekThree() {
     setData(newData);
   };
 
-  /* const exportCSV = (e) => {
-    e.preventDefault();
-    const csv = Papa.unparse(data); // 'data' ist Ihr Array von Objekten
-    console.log(csv); // Zeigt die CSV-String-Representation Ihrer Daten
-  }; */
-
   // make data downloadable
   const downloadCSV = (csv, filename) => {
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
@@ -201,7 +190,7 @@ export default function WeekThree() {
             ></input>
             <button onClick={getData}>Get Data</button>
           </form>
-          {/* <button onClick={countByGender}>Count by gender</button> */}
+
           <button onClick={handleDownloadCSV}>Download CSV</button>
           {renderMessage()}
         </div>
