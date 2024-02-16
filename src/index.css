@@ -518,6 +518,75 @@ td:hover {
   justify-content: center;
 }
 
+.weekfour_outer_container {
+  border: 2px solid white;
+  /* height: 85vh; */
+  border-radius: 10px;
+  margin: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+
+.weekfour_inner_container {
+  display: flex;
+  padding: 20px;
+  background-color: rgb(36, 36, 36);
+  border-radius: 10px;
+}
+
+.weekfour_inner_container h1 {
+  /* font: 800 40px Arial;
+  -webkit-text-stroke: 2px black; */
+  /* -webkit-text-fill-color: transparent; */
+}
+
+.weekfour_edit_form label {
+  color: #878787; /* graue Textfarbe */
+  font-weight: bold; /* Fettdruck */
+  margin-top: 10px; /* Abstand nach oben */
+  /* display: block;  */
+}
+
+.weekfour_edit_form button {
+  margin-top: 20px; /* Abstand nach oben */
+}
+
+.weekfour_edit_element {
+  margin-top: 15px;
+}
+
+.weekfour_upload_container_outer {
+  min-width: 330px;
+  min-height: 330px;
+  margin-left: 20px;
+  padding: 20px;
+  background-color: #161616;
+  border-radius: 10px;
+}
+
+.weekfour_upload_container {
+  position: relative;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.weekfour_upload_container_texttop {
+  position: absolute;
+  top: 20px;
+  /* left: 10px; */
+}
+
+.weekfour_upload_container_textbottom {
+  position: absolute;
+  bottom: 20px;
+}
+
+/*///////////////////// Media Queries ////////////////////////*/
+
 @media only screen and (max-width: 600px) {
   .chart_container_mostouter {
     margin-top: 10px;
