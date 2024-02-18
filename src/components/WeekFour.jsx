@@ -9,6 +9,7 @@ function WeekFour() {
   const [headlineTwo, setHeadlineTwo] = useState("");
   const [fontSizeValue, setFontSizeValue] = useState("2rem");
   const [fontColorValue, setFontColorValue] = useState("white");
+  const [formatTypeValue, setFormatTypeValue] = useState("png");
 
   //upload image & create URL
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -41,7 +42,7 @@ function WeekFour() {
       allowTaint: false,
     }).then((canvas) => {
       // create URL out of canvas
-      const image = canvas.toDataURL("image/jpeg", 1.0);
+      const image = canvas.toDataURL(`image/${formatTypeValue}`, 1.0);
       const link = document.createElement("a");
       link.href = image;
       link.download = "meme.jpg";
@@ -89,11 +90,21 @@ function WeekFour() {
                 <input
                   type="radio"
                   name="fontSize"
-                  value="4rem"
-                  checked={fontSizeValue === "4rem"}
+                  value="5rem"
+                  checked={fontSizeValue === "5rem"}
                   onChange={(e) => setFontSizeValue(e.target.value)}
                 />
                 XXL
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="fontSize"
+                  value="7rem"
+                  checked={fontSizeValue === "7rem"}
+                  onChange={(e) => setFontSizeValue(e.target.value)}
+                />
+                XXXL
               </label>
             </div>
             <div className="weekfour_edit_element">
@@ -118,9 +129,44 @@ function WeekFour() {
                 />
                 Blue
               </label>
+              <label>
+                <input
+                  name="fontColor"
+                  type="radio"
+                  value="yellow"
+                  checked={fontColorValue === "yellow"}
+                  onChange={(e) => setFontColorValue(e.target.value)}
+                />
+                Yellow
+              </label>
+            </div>
+            <div className="weekfour_edit_element">
+              <label>Download format:</label>
+              <label>
+                <input
+                  type="radio"
+                  name="formatType"
+                  value="jpeg"
+                  checked={formatTypeValue === "jpeg"}
+                  onChange={(e) => setFormatTypeValue(e.target.value)}
+                />
+                JPG
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="formatType"
+                  value="webp"
+                  cecked={formatTypeValue === "webp"}
+                  onChange={(e) => setFormatTypeValue(e.target.value)}
+                />
+                WebP
+              </label>
             </div>
 
-            <button onClick={downloadImage}>Download JPG</button>
+            <button onClick={downloadImage}>
+              {`Download ${formatTypeValue.toUpperCase()} file`}
+            </button>
           </form>
         </div>
         <div {...getRootProps()} className="weekfour_upload_container_outer">
