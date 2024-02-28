@@ -9,6 +9,7 @@ import WeekTwoSecond from "./components/WeekTwoSecond.jsx";
 import WeekThree from "./components/WeekThree.jsx";
 import Footer from "./components/Footer.jsx";
 import WeekFour from "./components/WeekFour.jsx";
+import WeekFive from "./components/WeekFive.jsx";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/weektwo" element={<WeekTwoSecond />} />
         <Route path="/weekthree" element={<WeekThree />} />
         <Route path="/weekfour" element={<WeekFour />} />
+        <Route path="weekfive" element={<WeekFive />} />
       </Routes>
       <Footer />
     </>

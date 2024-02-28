@@ -585,6 +585,23 @@ td:hover {
   bottom: 20px;
 }
 
+.weekfive_outer_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.weekfive_square {
+  height: 300px;
+  width: 300px;
+  background-color: rgb(0, 30, 255);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /*///////////////////// Media Queries ////////////////////////*/
 
 @media only screen and (max-width: 600px) {
