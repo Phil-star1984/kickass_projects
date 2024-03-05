@@ -620,6 +620,14 @@ button.scrape_button {
   margin-top: 10px;
 }
 
+.weekseven_container_outer {
+  border: 2px solid white;
+  height: 100vh;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
 /*///////////////////// Media Queries ////////////////////////*/
 
 @media only screen and (max-width: 600px) {
