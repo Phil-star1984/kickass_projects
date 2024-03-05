@@ -602,6 +602,24 @@ td:hover {
   justify-content: center;
 }
 
+.weeksix_container_outer {
+  border: 2px solid white;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.weeksix_result_container {
+  margin-top: 20px;
+  background-color: #161616;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+button.scrape_button {
+  margin-top: 10px;
+}
+
 /*///////////////////// Media Queries ////////////////////////*/
 
 @media only screen and (max-width: 600px) {
