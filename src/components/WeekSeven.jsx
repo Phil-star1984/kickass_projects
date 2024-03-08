@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import dotenv from "dotenv";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css"; // Importieren des Leaflet-CSS
 import { leerstandWuerzburg } from "../assets/leerstandData.js";
@@ -11,9 +12,13 @@ function WeekSeven() {
     straße: "",
     hausnummer: "",
     ort: "",
+    schließungAm: "",
   });
-  const gistURL =
-    "https://gist.githubusercontent.com/Phil-star1984/0f382c4b79d4fb05a574c78813bf7d7b/raw/48e5c6343d932e03257b39c90f525cd03faaa59a/leerstandWuerzburgData.json";
+  //Achtung: Token nur bis 15.03.2024 gültig!
+  const TOKEN = import.meta.env.VITE_GIST;
+  const GIST_ID = "0f382c4b79d4fb05a574c78813bf7d7b";
+  const GIST_FILENAME = "leerstandWuerzburgData.json";
+  const gistURL = `https://api.github.com/gists/${GIST_ID}`;
 
   /* useEffect(() => {
     async function fetchGeodata(url) {
@@ -49,11 +54,11 @@ function WeekSeven() {
   useEffect(() => {
     async function getGistData(url) {
       try {
-        const result = await axios(url);
-        /* const parsedData = JSON.parse(result.data);
-        console.log(parsedData); */
-        console.log("Data from Gist: ", result.data);
-        setLeerstandArray(result.data);
+        const result = await axios.get(url);
+        const gist = result.data;
+        const gistParsed = JSON.parse(gist.files[GIST_FILENAME].content);
+        console.log("Data from Gist: ", gistParsed);
+        setLeerstandArray(gistParsed);
       } catch (error) {
         console.error("Error fetching from Gist", error);
       }
@@ -101,16 +106,79 @@ function WeekSeven() {
         // aus formData und den gefetchten Geodaten zu dem neuen Leerstandsobjekt soll ein neues Objekt entstehen, das ich an den leerstandArray anhängen möchte
         const newLeerstand = { ...formData, latLong: geoData };
 
-        setLeerstandArray((prev) => [...prev, newLeerstand]);
+        setLeerstandArray((prev) => {
+          const updatedArray = [...prev, newLeerstand];
+          setData(updatedArray); // Update the Gist after adding new data to leerstandArray
+          return updatedArray;
+        });
       } catch (error) {
         console.error("Konvertieren zu Geodaten nicht erfolgreich", error);
       }
     }
+
+    /* async function setData(data) {
+      const req = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+        body: JSON.stringify({
+          files: {
+            [GIST_FILENAME]: {
+              content: JSON.stringify(data),
+            },
+          },
+        }),
+      });
+      console.log(req);
+      if (req.status === 200) {
+        alert("Leerstand erfolgreich eingetragen");
+      }
+
+      return req.json();
+    } */
+
+    async function setData(data) {
+      try {
+        const req = await axios.patch(
+          `https://api.github.com/gists/${GIST_ID}`,
+          {
+            files: {
+              [GIST_FILENAME]: {
+                content: JSON.stringify(data),
+              },
+            },
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${TOKEN}`,
+            },
+          }
+        );
+
+        console.log(req);
+        if (req.status === 200) {
+          alert("Leerstand erfolgreich eingetragen");
+        }
+      } catch (error) {
+        console.error(
+          "Fehler: Daten in Gist speichern nicht erfolgreich",
+          error
+        );
+      }
+    }
+
     convertToGeodata();
 
     /* console.log(formData); */
     console.log("Aktualisierte Daten: ", leerstandArray);
-    setFormData({ name: "", straße: "", hausnummer: "", ort: "" });
+    setFormData({
+      name: "",
+      straße: "",
+      hausnummer: "",
+      ort: "",
+      schließungAm: "",
+    });
   };
 
   return (
@@ -152,48 +220,65 @@ function WeekSeven() {
           </Marker>
         ))}
       </MapContainer>
-      <form onSubmit={addLeerstand}>
-        <label htmlFor="titel">Name/Bezeichnung</label>
-        <input
-          type="text"
-          name="name"
-          placeholder="Leerstand Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <label htmlFor="straße">Straße</label>
-        <input
-          type="text"
-          name="straße"
-          value={formData.straße}
-          placeholder="Straßenname eingeben"
-          onChange={handleChange}
-        />
-        <label htmlFor="hausnummer">Hausnummer</label>
-        <input
-          type="text"
-          name="hausnummer"
-          value={formData.hausnummer}
-          placeholder="Hausnummer eintragen"
-          onChange={handleChange}
-        />
-        <label htmlFor="ort">Ort</label>
-        <input
-          type="text"
-          name="ort"
-          value={formData.ort}
-          placeholder="Ort eintragen"
-          onChange={handleChange}
-        />
-        <button>Leerstand eintragen</button>
-      </form>
-      {!!formData && (
-        <div>
-          <p>{formData.name}</p>
-          <p>{formData.straße}</p>
-          <p>{formData.hausnummer}</p>
+      <div className="weekseven_input_container">
+        <form onSubmit={addLeerstand} className="weekseven_leerstand_input">
+          <label htmlFor="titel">Name/Bezeichnung</label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Leerstand Name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+          <label htmlFor="straße">Straße</label>
+          <input
+            type="text"
+            name="straße"
+            value={formData.straße}
+            placeholder="Straßenname eingeben"
+            onChange={handleChange}
+          />
+          <label htmlFor="hausnummer">Hausnummer</label>
+          <input
+            type="text"
+            name="hausnummer"
+            value={formData.hausnummer}
+            placeholder="Hausnummer eintragen"
+            onChange={handleChange}
+          />
+          <label htmlFor="ort">Ort</label>
+          <input
+            type="text"
+            name="ort"
+            value={formData.ort}
+            placeholder="Ort eintragen"
+            onChange={handleChange}
+          />
+          <label htmlFor="ort">Datum Schließung</label>
+          <input
+            type="text"
+            name="schließungAm"
+            value={formData.schließungAm}
+            onChange={handleChange}
+            placeholder="Datum Schließung eintragen (optional)"
+          />
+          <button>Leerstand eintragen</button>
+        </form>
+        <div className="weekseven_leerstand_display">
+          {!!formData && (
+            <div>
+              <p>Neuer Leerstand:</p>
+              <h2>{formData.name}</h2>
+              <p>
+                {formData.straße} {formData.hausnummer}
+              </p>
+
+              <p>{formData.ort}</p>
+              <p>{formData.schließungAm}</p>
+            </div>
+          )}
         </div>
-      )}
+      </div>
       {leerstandArray.length > 0 && (
         <button onClick={downloadLeerstandListe}>Download list</button>
       )}
