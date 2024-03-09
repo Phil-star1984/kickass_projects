@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import dotenv from "dotenv";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+/* import dotenv from "dotenv"; */
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Circle,
+  CircleMarker,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css"; // Importieren des Leaflet-CSS
-import { leerstandWuerzburg } from "../assets/leerstandData.js";
+/* import { leerstandWuerzburg } from "../assets/leerstandData.js"; */
+import { Icon } from "leaflet";
 
 function WeekSeven() {
   const [leerstandArray, setLeerstandArray] = useState([]);
@@ -14,6 +22,19 @@ function WeekSeven() {
     ort: "",
     schließungAm: "",
   });
+
+  //Options für die Leaflet Map
+  const center = [49.7942, 9.931];
+  const purpleOptions = { color: "purple" };
+  const redOptions = { color: "red" };
+  const legalIcon = new Icon({
+    iconUrl:
+      "http://www.phil-splash.de/wp-content/uploads/2015/12/themillionpainter_logo.jpg",
+    iconSize: [35, 15], // size of the icon
+    iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
+  });
+
   //Achtung: Token nur bis 15.03.2024 gültig!
   const TOKEN = import.meta.env.VITE_GIST;
   const GIST_ID = "0f382c4b79d4fb05a574c78813bf7d7b";
@@ -187,15 +208,21 @@ function WeekSeven() {
 
       {/* <h1>Web Dev Map || Find-a-Job</h1> */}
       <MapContainer
-        center={[49.7942, 9.931]}
+        center={center}
         zoom={15}
-        scrollWheelZoom={false}
+        scrollWheelZoom={true}
         style={{ height: "500px", borderRadius: "10px" }}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <Circle center={center} pathOptions={purpleOptions} radius={800} />
+        <CircleMarker
+          center={[51.51, -0.12]}
+          pathOptions={redOptions}
+          radius={20}
+        ></CircleMarker>
         {/* <Marker position={[49.791306, 9.953355]}>
           <Popup>
             New Job: Web Developer <br /> Würzburg
@@ -211,7 +238,7 @@ function WeekSeven() {
         ))} */}
 
         {leerstandArray.map((item, index) => (
-          <Marker position={item.latLong} key={index}>
+          <Marker position={item.latLong} key={index} icon={legalIcon}>
             <Popup>
               Laden: {item.name}
               <br /> Straße: {item.straße} {item.hausnummer} <br /> Geschlossen
