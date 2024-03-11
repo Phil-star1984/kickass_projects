@@ -18,13 +18,15 @@ function App() {
     <>
       <NavBar />
 
+      
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/weekone" element={<WeekOneTest />} />
         <Route path="/weektwo" element={<WeekTwoSecond />} />
         <Route path="/weekthree" element={<WeekThree />} />
         <Route path="/weekfour" element={<WeekFour />} />
-        <Route path="weekfive" element={<WeekFive />} />
+        <Route path="/weekfive" element={<WeekFive />} />
         <Route path="/weeksix" element={<WeekSix />} />
         <Route path="/weekseven" element={<WeekSeven />} />
       </Routes>

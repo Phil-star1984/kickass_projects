@@ -586,10 +586,14 @@ td:hover {
 }
 
 .weekfive_outer_container {
+  border: 2px solid white;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 50vh;
 }
 
 .weekfive_square {

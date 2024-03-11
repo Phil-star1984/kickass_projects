@@ -9,17 +9,20 @@ function WeekSix() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Scraping the site:", url);
-    console.log("Searching for: ", searchType);
+    /* console.log("Scraping the site:", url);
+    console.log("Searching for: ", searchType); */
 
     try {
       const response = await axios.get(
-        `http://localhost:8000/scrape?url=${encodeURIComponent(
-          url
-        )}&searchType=${encodeURIComponent(searchType)}`
+        `${
+          import.meta.env.VITE_BACKEND_BASE_URL
+        }/scrape?url=${encodeURIComponent(url)}&searchType=${encodeURIComponent(
+          searchType
+        )}`
       );
 
-      console.log(response.data);
+      /* console.log(response.data);
+      console.log(import.meta.env.VITE_BACKEND_BASE_URL); */
 
       /* const filteredData = response.data.filter((item) => {
         const result = item.includes("http") && item.length > 5;
@@ -82,7 +85,7 @@ function WeekSix() {
         {!!data && <button onClick={downloadData}>Download Data</button>}
       </form>
 
-      {!!data && (
+      {!!data && searchType === "web-links" ? (
         <div className="weeksix_result_container">
           <p>Results: {data.length}</p>{" "}
           {data.map((item, index) => (
@@ -94,6 +97,13 @@ function WeekSix() {
             >
               <h1>{item}</h1>
             </a>
+          ))}
+        </div>
+      ) : (
+        <div className="weeksix_result_container">
+          <p>Results: {data.length}</p>{" "}
+          {data.map((item, index) => (
+            <h1 key={index}>{item}</h1>
           ))}
         </div>
       )}

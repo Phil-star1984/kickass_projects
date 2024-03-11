@@ -30,7 +30,7 @@ function WeekSeven() {
   const legalIcon = new Icon({
     iconUrl:
       "http://www.phil-splash.de/wp-content/uploads/2015/12/themillionpainter_logo.jpg",
-    iconSize: [35, 15], // size of the icon
+    iconSize: [35, 18], // size of the icon
     iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
     popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
   });
@@ -240,9 +240,10 @@ function WeekSeven() {
         {leerstandArray.map((item, index) => (
           <Marker position={item.latLong} key={index} icon={legalIcon}>
             <Popup>
-              Laden: {item.name}
+              Geschäft: {item.name}
               <br /> Straße: {item.straße} {item.hausnummer} <br /> Geschlossen
-              am: {item.schließungAm}
+              am: {item.schließungAm} <br />
+              Stadt: {item.ort}
             </Popup>
           </Marker>
         ))}
