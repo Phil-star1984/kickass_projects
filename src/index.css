@@ -585,6 +585,72 @@ td:hover {
   bottom: 20px;
 }
 
+.weekfive_outer_container {
+  border: 2px solid white;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.weekfive_square {
+  height: 300px;
+  width: 300px;
+  background-color: rgb(0, 30, 255);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weeksix_container_outer {
+  border: 2px solid white;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.weeksix_result_container {
+  margin-top: 20px;
+  background-color: #161616;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+button.scrape_button {
+  margin-top: 10px;
+}
+
+.weekseven_container_outer {
+  border: 2px solid white;
+  height: 100vh;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.weekseven_input_container {
+  display: flex;
+  margin-top: 20px;
+  padding: 20px;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.weekseven_leerstand_input {
+  /* to be defined */
+  width: 50%;
+}
+.weekseven_leerstand_display {
+  background-color: #161616;
+  border-radius: 10px;
+  padding: 20px;
+  width: 50%;
+}
+
 /*///////////////////// Media Queries ////////////////////////*/
 
 @media only screen and (max-width: 600px) {

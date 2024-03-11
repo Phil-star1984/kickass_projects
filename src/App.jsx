@@ -9,11 +9,16 @@ import WeekTwoSecond from "./components/WeekTwoSecond.jsx";
 import WeekThree from "./components/WeekThree.jsx";
 import Footer from "./components/Footer.jsx";
 import WeekFour from "./components/WeekFour.jsx";
+import WeekFive from "./components/WeekFive.jsx";
+import WeekSix from "./components/WeekSix.jsx";
+import WeekSeven from "./components/WeekSeven.jsx";
 
 function App() {
   return (
     <>
       <NavBar />
+
+      
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -21,6 +26,9 @@ function App() {
         <Route path="/weektwo" element={<WeekTwoSecond />} />
         <Route path="/weekthree" element={<WeekThree />} />
         <Route path="/weekfour" element={<WeekFour />} />
+        <Route path="/weekfive" element={<WeekFive />} />
+        <Route path="/weeksix" element={<WeekSix />} />
+        <Route path="/weekseven" element={<WeekSeven />} />
       </Routes>
       <Footer />
     </>
