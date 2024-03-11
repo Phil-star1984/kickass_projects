@@ -4,7 +4,7 @@ import fs from "fs";
 
 function WeekSix() {
   const [url, setUrl] = useState("");
-  const [data, setData] = useState(null);
+  const [data, setData] = useState("");
   const [searchType, setSearchType] = useState("web-links");
 
   const handleSubmit = async (e) => {
