@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import iconMarker from "leaflet/dist/images/marker-icon.png";
-import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
+/* import iconRetina from "leaflet/dist/images/marker-icon-2x.png"; */
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
 import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import "leaflet/dist/leaflet.css"; // Importieren des Leaflet-CSS
-/* import { Icon } from "leaflet"; */
+
+
 
 function WeekSeven() {
   const [leerstandArray, setLeerstandArray] = useState([]);
