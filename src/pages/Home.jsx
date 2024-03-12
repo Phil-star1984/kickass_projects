@@ -17,6 +17,7 @@ function Home() {
       <WeekFive />
       <WeekSix />
       <WeekSeven />
+      {/* <h1>HELLO</h1> */}
     </>
   );
 }

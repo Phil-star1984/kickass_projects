@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import fs from "fs";
 
 function WeekSix() {
   const [url, setUrl] = useState("");
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [searchType, setSearchType] = useState("web-links");
 
   const handleSubmit = async (e) => {
@@ -43,7 +42,7 @@ function WeekSix() {
       type: "application/json",
     });
     const dataURL = URL.createObjectURL(dataArray);
-    console.log("Data URL", dataURL);
+    /* console.log("Data URL", dataURL); */
     const link = document.createElement("a");
     link.href = dataURL;
     link.download = "data.json";
