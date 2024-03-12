@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { ImpulseSpinner } from "react-spinners-kit";
 
 function WeekSix() {
   const [url, setUrl] = useState("");
   const [data, setData] = useState([]);
   const [searchType, setSearchType] = useState("web-links");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     /* console.log("Scraping the site:", url);
     console.log("Searching for: ", searchType); */
 
@@ -29,6 +32,7 @@ function WeekSix() {
       });
       console.log(filteredData); */
       setData(response.data);
+      setIsLoading(false);
     } catch (error) {
       console.error("Could not scrape url", error);
     }
@@ -86,7 +90,8 @@ function WeekSix() {
 
       {!!data && searchType === "web-links" ? (
         <div className="weeksix_result_container">
-          <p>Results: {data.length}</p>{" "}
+          {!!isLoading && <ImpulseSpinner />}
+          <p>Results: {data.length}</p>
           {data.map((item, index) => (
             <a
               key={index}
@@ -100,7 +105,8 @@ function WeekSix() {
         </div>
       ) : (
         <div className="weeksix_result_container">
-          <p>Results: {data.length}</p>{" "}
+          {!!isLoading && <ImpulseSpinner size={60} />}
+          <p>Results: {data.length}</p>
           {data.map((item, index) => (
             <h1 key={index}>{item}</h1>
           ))}
