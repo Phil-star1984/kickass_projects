@@ -153,11 +153,11 @@ function WeekSeven() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Circle center={center} radius={800} />
-        <CircleMarker
+        {/* <CircleMarker
           center={[51.51, -0.12]}
           pathOptions={redOptions}
           radius={20}
-        ></CircleMarker>
+        ></CircleMarker> */}
 
         {leerstandArray.map((item, index) => (
           <Marker position={item.latLong} key={index}>
