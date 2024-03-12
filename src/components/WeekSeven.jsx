@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-/* import dotenv from "dotenv"; */
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  Circle,
-  CircleMarker,
-} from "react-leaflet";
+import iconMarker from "leaflet/dist/images/marker-icon.png";
+import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+
+import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import "leaflet/dist/leaflet.css"; // Importieren des Leaflet-CSS
-/* import { leerstandWuerzburg } from "../assets/leerstandData.js"; */
-import { Icon } from "leaflet";
+/* import { Icon } from "leaflet"; */
 
 function WeekSeven() {
   const [leerstandArray, setLeerstandArray] = useState([]);
@@ -25,6 +20,11 @@ function WeekSeven() {
 
   //Options für die Leaflet Map
   const center = [49.7942, 9.931];
+  const icon = L.icon({
+    iconRetinaUrl: iconMarker,
+    iconUrl: iconMarker,
+    shadowUrl: iconShadow,
+  });
 
   //Achtung: Token nur bis 15.03.2024 gültig!
   const TOKEN = import.meta.env.VITE_GIST;
@@ -38,7 +38,6 @@ function WeekSeven() {
         const result = await axios.get(url);
         const gist = result.data;
         const gistParsed = JSON.parse(gist.files[GIST_FILENAME].content);
-        console.log("Data from Gist: ", gistParsed);
         setLeerstandArray(gistParsed);
       } catch (error) {
         console.error("Error fetching from Gist", error);
@@ -160,7 +159,7 @@ function WeekSeven() {
         ></CircleMarker> */}
 
         {leerstandArray.map((item, index) => (
-          <Marker position={item.latLong} key={index}>
+          <Marker position={item.latLong} key={index} icon={icon}>
             <Popup>
               Geschäft: {item.name}
               <br /> Straße: {item.straße} {item.hausnummer} <br /> Geschlossen
