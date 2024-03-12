@@ -25,52 +25,12 @@ function WeekSeven() {
 
   //Options für die Leaflet Map
   const center = [49.7942, 9.931];
-  const purpleOptions = { color: "purple" };
-  const redOptions = { color: "red" };
-  /* const legalIcon = new Icon({
-    iconUrl:
-      "https://cdn-icons-png.freepik.com/256/2838/2838912.png",
-    iconSize: [20, 20], // size of the icon
-    iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
-  }); */
 
   //Achtung: Token nur bis 15.03.2024 gültig!
   const TOKEN = import.meta.env.VITE_GIST;
   const GIST_ID = "0f382c4b79d4fb05a574c78813bf7d7b";
   const GIST_FILENAME = "leerstandWuerzburgData.json";
   const gistURL = `https://api.github.com/gists/${GIST_ID}`;
-
-  /* useEffect(() => {
-    async function fetchGeodata(url) {
-      const result = await axios.get(url);
-      return [+result.data[0].lat, +result.data[0].lon];
-    }
-
-    async function fetchAllGeodata() {
-      const tempArray = []; // Temporäres Array zum Sammeln der Ergebnisse
-      for (const item of leerstandWuerzburg) {
-        const URL = `https://nominatim.openstreetmap.org/search?format=json&limit=1&street=${encodeURIComponent(
-          item.hausnummer
-        )}+${encodeURIComponent(item.straße)}&city=${encodeURIComponent(
-          item.ort
-        )}`;
-        const latLong = await fetchGeodata(URL);
-        tempArray.push({ ...item, latLong });
-        console.log("Zwischenstand leerstandArray:", tempArray);
-        await new Promise((resolve) => setTimeout(resolve, 100)); // Verzögerung zwischen den Anfragen
-      }
-      setLeerstandArray(tempArray); // Aktualisiere den State einmalig am Ende
-    }
-
-    function saveAllGeodata() {
-      console.log("File Saver");
-      // Speichern der Daten von leerstandArray in einer Datei "leerstandWuerzburgData.js" unter "/src/assets"
-    }
-
-    fetchAllGeodata();
-    saveAllGeodata();
-  }, []); */
 
   useEffect(() => {
     async function getGistData(url) {
@@ -118,10 +78,7 @@ function WeekSeven() {
       )}`;
       try {
         const result = await axios.get(url);
-        /* console.log("Geodaten von neuem Objekt: ", [
-          +result.data[0].lat,
-          +result.data[0].lon,
-        ]); */
+
         const geoData = [+result.data[0].lat, +result.data[0].lon];
 
         // aus formData und den gefetchten Geodaten zu dem neuen Leerstandsobjekt soll ein neues Objekt entstehen, das ich an den leerstandArray anhängen möchte
@@ -136,28 +93,6 @@ function WeekSeven() {
         console.error("Konvertieren zu Geodaten nicht erfolgreich", error);
       }
     }
-
-    /* async function setData(data) {
-      const req = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${TOKEN}`,
-        },
-        body: JSON.stringify({
-          files: {
-            [GIST_FILENAME]: {
-              content: JSON.stringify(data),
-            },
-          },
-        }),
-      });
-      console.log(req);
-      if (req.status === 200) {
-        alert("Leerstand erfolgreich eingetragen");
-      }
-
-      return req.json();
-    } */
 
     async function setData(data) {
       try {
@@ -223,19 +158,6 @@ function WeekSeven() {
           pathOptions={redOptions}
           radius={20}
         ></CircleMarker>
-        {/* <Marker position={[49.791306, 9.953355]}>
-          <Popup>
-            New Job: Web Developer <br /> Würzburg
-          </Popup>
-        </Marker> */}
-        {/* {jobList.map((item, index) => (
-          <Marker position={item.latLong} key={index}>
-            <Popup>
-              Job: {item.titel}
-              <br /> {item.ort}
-            </Popup>
-          </Marker>
-        ))} */}
 
         {leerstandArray.map((item, index) => (
           <Marker position={item.latLong} key={index}>
