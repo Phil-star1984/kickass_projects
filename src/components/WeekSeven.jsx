@@ -27,13 +27,13 @@ function WeekSeven() {
   const center = [49.7942, 9.931];
   const purpleOptions = { color: "purple" };
   const redOptions = { color: "red" };
-  const legalIcon = new Icon({
+  /* const legalIcon = new Icon({
     iconUrl:
-      "http://www.phil-splash.de/wp-content/uploads/2015/12/themillionpainter_logo.jpg",
-    iconSize: [35, 18], // size of the icon
+      "https://cdn-icons-png.freepik.com/256/2838/2838912.png",
+    iconSize: [20, 20], // size of the icon
     iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
     popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
-  });
+  }); */
 
   //Achtung: Token nur bis 15.03.2024 gültig!
   const TOKEN = import.meta.env.VITE_GIST;
@@ -217,7 +217,7 @@ function WeekSeven() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Circle center={center} pathOptions={purpleOptions} radius={800} />
+        <Circle center={center} radius={800} />
         <CircleMarker
           center={[51.51, -0.12]}
           pathOptions={redOptions}
@@ -238,7 +238,7 @@ function WeekSeven() {
         ))} */}
 
         {leerstandArray.map((item, index) => (
-          <Marker position={item.latLong} key={index} icon={legalIcon}>
+          <Marker position={item.latLong} key={index}>
             <Popup>
               Geschäft: {item.name}
               <br /> Straße: {item.straße} {item.hausnummer} <br /> Geschlossen
