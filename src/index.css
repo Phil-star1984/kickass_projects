@@ -651,6 +651,44 @@ button.scrape_button {
   width: 50%;
 }
 
+.weekeight_outer_container {
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+}
+
+.weekeight_inner_container {
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.weekeight_upload_preview {
+  margin: 20px 0;
+}
+
+.uploadInput {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.identification_inner_container {
+  margin-top: 20px;
+  line-height: 1rem;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 15px;
+}
+
+.identification_inner_container h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
 /*///////////////////// Media Queries ////////////////////////*/
 
 @media only screen and (max-width: 600px) {

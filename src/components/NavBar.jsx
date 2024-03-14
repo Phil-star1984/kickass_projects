@@ -29,6 +29,9 @@ function NavBar() {
         <li>
           <NavLink to="/weekseven">Week 7</NavLink>
         </li>
+        <li>
+          <NavLink to="/weekeight">Week 8</NavLink>
+        </li>
       </ul>
     </nav>
   );

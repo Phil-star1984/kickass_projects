@@ -90,7 +90,7 @@ function WeekSix() {
 
       {!!data && searchType === "web-links" ? (
         <div className="weeksix_result_container">
-          {!!isLoading && <ImpulseSpinner />}
+          {!!isLoading && <ImpulseSpinner size={50} />}
           <p>Results: {data.length}</p>
           {data.map((item, index) => (
             <a
@@ -105,7 +105,7 @@ function WeekSix() {
         </div>
       ) : (
         <div className="weeksix_result_container">
-          {!!isLoading && <ImpulseSpinner size={60} />}
+          {!!isLoading && <ImpulseSpinner size={50} />}
           <p>Results: {data.length}</p>
           {data.map((item, index) => (
             <h1 key={index}>{item}</h1>
