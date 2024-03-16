@@ -12,13 +12,12 @@ import WeekFour from "./components/WeekFour.jsx";
 import WeekFive from "./components/WeekFive.jsx";
 import WeekSix from "./components/WeekSix.jsx";
 import WeekSeven from "./components/WeekSeven.jsx";
+import WeekEight from "./components/WeekEight.jsx";
 
 function App() {
   return (
     <>
       <NavBar />
-
-      
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -29,6 +28,7 @@ function App() {
         <Route path="/weekfive" element={<WeekFive />} />
         <Route path="/weeksix" element={<WeekSix />} />
         <Route path="/weekseven" element={<WeekSeven />} />
+        <Route path="/weekeight" element={<WeekEight />} />
       </Routes>
       <Footer />
     </>
