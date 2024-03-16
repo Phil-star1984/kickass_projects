@@ -92,7 +92,7 @@ function WeekEight() {
             <img
               src={uploadURL}
               style={{ maxWidth: "400px", maxHeight: "400px" }}
-              alt="upload preview"
+              alt="Upload Preview"
               crossOrigin="anonymous"
               ref={imageRef}
             />
