@@ -135,6 +135,9 @@ button:focus-visible {
   text-decoration: none;
   list-style-type: none;
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
 }
 
 .navbar_navlinks > li {
