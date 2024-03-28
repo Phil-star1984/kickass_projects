@@ -5,7 +5,7 @@ function NavBar() {
   return (
     <nav className="navbar_outer_container">
       <NavLink to="/">
-        <h1 className="navbar_logo">KickAss Projects</h1>
+        <h1 className="navbar_logo">WebDevPhil</h1>
       </NavLink>
       <ul className="navbar_navlinks">
         <li>
@@ -34,6 +34,9 @@ function NavBar() {
         </li>
         <li>
           <NavLink to="weeknine">Week 9</NavLink>
+        </li>
+        <li>
+          <NavLink to="weekten">Week 10 </NavLink>
         </li>
       </ul>
     </nav>

@@ -3,21 +3,27 @@ import axios from "axios";
 
 function WeekNine() {
   const [data, setData] = useState("");
-  const apiURL = "https://api.artic.edu/api/v1/artworks";
+  const apiURL = "http://localhost:8000/scrapelinkedin";
 
-  const getData = async (e) => {
-    e.preventDefault();
+  const getData = async () => {
+    /* e.preventDefault(); */
+
+    const newData = {
+      name: "Phil",
+      ort: "Würzburg",
+      straße: "Wiesenweg",
+    };
 
     try {
-      const result = await axios.get(apiURL);
-      console.log("Received Data from API: ", result.data.data);
-      setData(result.data.data);
+      const result = await axios.post(apiURL, newData);
+      console.log("Received Data from API: ", result);
+      /* setData(result.data.data); */
     } catch (error) {
       console.error("Data from URL not available", error);
     }
   };
 
-  const downloadData = (e) => {
+  const downloadData = () => {
     /* e.preventDefault(); */
     const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
