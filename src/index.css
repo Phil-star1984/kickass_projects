@@ -135,6 +135,9 @@ button:focus-visible {
   text-decoration: none;
   list-style-type: none;
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
 }
 
 .navbar_navlinks > li {
@@ -687,6 +690,24 @@ button.scrape_button {
 .identification_inner_container h2 {
   margin-top: 0;
   margin-bottom: 0.5rem;
+}
+
+.weekten_outer_container {
+  border: 2px solid white;
+  border-radius: 10px;
+  margin: 10px;
+  margin-top: 0px;
+  padding: 20px;
+}
+
+form.weekten_input {
+  background-color: #111111;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+select.choose_size {
+  margin-bottom: 20px;
 }
 
 /*///////////////////// Media Queries ////////////////////////*/
