@@ -708,6 +708,26 @@ form.weekten_input {
 
 select.choose_size {
   margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.weekten_mosaic_canvas {
+  margin-top: 20px;
+  border-radius: 5px;
+  max-width: 100%;
+  max-height: 100vh; /* 100% der Viewport-Höhe */
+  object-fit: contain; /* Behält das Seitenverhältnis bei, während das Bild innerhalb der gegebenen Dimensionen passt */
+}
+
+.weekten_loading_container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.footer_container_outer {
+  margin-top: 20px;
+  margin-bottom: 70px;
 }
 
 /*///////////////////// Media Queries ////////////////////////*/
@@ -740,11 +760,14 @@ select.choose_size {
     padding-left: 5px;
     padding-right: 5px;
   }
-}
 
-.footer_container_outer {
-  margin-top: 20px;
-  margin-bottom: 70px;
+  ul.navbar_navlinks {
+    display: none;
+  }
+
+  select#mosaic_size {
+    width: 100%;
+  }
 }
 
 /* @media (prefers-color-scheme: light) {
