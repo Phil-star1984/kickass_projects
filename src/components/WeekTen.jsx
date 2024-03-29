@@ -1,13 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
+import { GuardSpinner } from "react-spinners-kit";
 
 function WeekTen() {
   const [mosaicSize, setMosaicSize] = useState("1200x1200px");
   const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const canvasRef = useRef(null);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (images.length > 0) {
+      setIsLoading(true);
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
 
@@ -24,6 +27,8 @@ function WeekTen() {
       const tileHeight =
         canvasHeight /
         Math.ceil(images.length / Math.ceil(Math.sqrt(images.length)));
+
+      let loadedImages = 0; // Zähler für geladene Bilder
 
       images.forEach((file, index) => {
         const img = new Image();
@@ -64,6 +69,12 @@ function WeekTen() {
             tileWidth,
             tileHeight
           );
+
+          loadedImages++;
+
+          if (loadedImages === images.length) {
+            setIsLoading(false);
+          }
         };
 
         // Object URL erstellen und bereinigen
@@ -113,8 +124,6 @@ function WeekTen() {
             onChange={(e) => setImages(Array.from(e.target.files))}
             style={{ display: "none" }}
             ref={fileInputRef}
-            /* bei onChange wird eine kurzfristige URL erstellt, die man benötigt um die hochgeladenen Bilder auch anzuzeigen */
-            /* Datentyp: jpg/png/apple format, mehrere Bilder (min. 10) sollen ausgewählt werden od. ein ganzer Ordner */
           ></input>
 
           <button type="button" onClick={handleUploadClick}>
@@ -122,31 +131,31 @@ function WeekTen() {
           </button>
           <br />
           <label>
-            Choose size
             <select
               className="choose_size"
               name="mosaicSize"
               id="mosaic_size"
               onChange={(e) => setMosaicSize(e.target.value)}
             >
+              <option value="1200x1200px">Choose Mosaic size</option>
               <option value="1200x1200px">Square 1200 x 1200 px</option>
               <option value="1080x1920px">Story 1080 x 1920 px</option>
             </select>
           </label>
 
-          {/* bei Button click muss die Generierungslogik stattfinden,
-            Wie können die Bilder angeordnet werden, damit sie ein Quadrat im Format 1200x1200px (Option 1) ergeben?
-            1. Überprüfung der Bildgrößen und evtl. Verkleinerung
-            2.  */}
           <button type="button" onClick={downloadMosaic}>
             Download Mosaic
           </button>
         </form>
+        {isLoading && (
+          <div className="weekten_loading_container">
+            <GuardSpinner />
+          </div>
+        )}
 
-        <div className="weekten_mosaic_container">
-          <h1>Result</h1>
-          <canvas ref={canvasRef}></canvas>
-        </div>
+        {images.length > 0 && (
+          <canvas className="weekten_mosaic_canvas" ref={canvasRef}></canvas>
+        )}
       </div>
     </div>
   );
