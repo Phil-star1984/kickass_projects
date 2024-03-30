@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { GuardSpinner } from "react-spinners-kit";
+import heic2any from "heic2any";
 
 function WeekTen() {
   const [mosaicSize, setMosaicSize] = useState("1200x1200px");
@@ -107,9 +108,42 @@ function WeekTen() {
   };
 
   const handleUploadClick = () => {
+    alert(
+      "Für ein optimales Mosaik-Ergebnis, wähle bitte 2,4,6,9,12,16,25 oder 36 Bilder"
+    );
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
+  };
+
+  // für Convertierung von z.B. iPhone Bildern
+  const convertHEICToJPEG = async (file) => {
+    try {
+      const convertedBlob = await heic2any({
+        blob: file,
+        toType: "image/jpeg",
+        quality: 0.8,
+      });
+      return convertedBlob;
+    } catch (e) {
+      console.error(e);
+      return file; // Rückgabe des ursprünglichen Dateiobjekts bei einem Fehler
+    }
+  };
+
+  const handleImageChange = async (e) => {
+    const files = Array.from(e.target.files);
+
+    const convertedImages = await Promise.all(
+      files.map(async (file) => {
+        if (file.type === "image/heic") {
+          return convertHEICToJPEG(file);
+        }
+        return file;
+      })
+    );
+
+    setImages(convertedImages);
   };
 
   return (
@@ -121,7 +155,7 @@ function WeekTen() {
             type="file"
             multiple
             accept="image/*"
-            onChange={(e) => setImages(Array.from(e.target.files))}
+            onChange={handleImageChange}
             style={{ display: "none" }}
             ref={fileInputRef}
           ></input>
@@ -138,8 +172,9 @@ function WeekTen() {
               onChange={(e) => setMosaicSize(e.target.value)}
             >
               <option value="1200x1200px">Choose Mosaic size</option>
-              <option value="1200x1200px">Square 1200 x 1200 px</option>
-              <option value="1080x1920px">Story 1080 x 1920 px</option>
+              <option value="1200x1200px">Insta Square 1200 x 1200 px</option>
+              <option value="1080x1920px">Insta Story 1080 x 1920 px</option>
+              <option value="1584x396px">LinkedIn Cover 1584 x 396 px</option>
             </select>
           </label>
 
