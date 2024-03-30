@@ -157,7 +157,7 @@ function WeekFour() {
                   type="radio"
                   name="formatType"
                   value="webp"
-                  cecked={formatTypeValue === "webp"}
+                  checked={formatTypeValue === "webp"}
                   onChange={(e) => setFormatTypeValue(e.target.value)}
                 />
                 WebP

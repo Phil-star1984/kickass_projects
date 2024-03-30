@@ -19,6 +19,7 @@
     "@tensorflow/tfjs-core": "^4.17.0",
     "axios": "^1.6.5",
     "chart.js": "^4.4.1",
+    "heic2any": "^0.0.4",
     "html2canvas": "^1.4.1",
     "leaflet": "^1.9.4",
     "papaparse": "^5.4.1",
