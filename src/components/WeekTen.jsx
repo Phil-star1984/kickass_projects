@@ -8,6 +8,7 @@ function WeekTen() {
   const [isLoading, setIsLoading] = useState(false);
   const canvasRef = useRef(null);
   const fileInputRef = useRef(null);
+  const downloadLinkRef = useRef(null);
 
   useEffect(() => {
     if (images.length > 0) {
@@ -95,15 +96,13 @@ function WeekTen() {
       // Erstellen Sie eine Data URL für das Canvas
       const imageDataURL = canvasRef.current.toDataURL("image/jpeg", 1.0);
 
-      // Erstellen Sie ein <a> Element für den Download
-      const downloadLink = document.createElement("a");
+      // Verwenden der Ref, um auf das <a>-Element zuzugreifen und den Download zu initiieren
+      const downloadLink = downloadLinkRef.current;
       downloadLink.href = imageDataURL;
       downloadLink.download = "mosaic.jpg"; // Der Dateiname für das heruntergeladene Bild
 
-      // Dieser Teil löst den Download aus
-      document.body.appendChild(downloadLink);
+      // Download auslösen
       downloadLink.click();
-      document.body.removeChild(downloadLink);
     }
   };
 
@@ -122,7 +121,7 @@ function WeekTen() {
       const convertedBlob = await heic2any({
         blob: file,
         toType: "image/jpeg",
-        quality: 0.8,
+        quality: 1,
       });
       return convertedBlob;
     } catch (e) {
@@ -132,10 +131,19 @@ function WeekTen() {
   };
 
   const handleImageChange = async (e) => {
+    const MAX_SIZE = 10 * 1024 * 1024; // 10MB in Bytes
+
     const files = Array.from(e.target.files);
+    const validFiles = files.filter((file) => file.size <= MAX_SIZE);
+
+    if (validFiles.length !== files.length) {
+      alert(
+        "Einige Dateien wurden nicht hinzugefügt, da sie größer als 10MB sind."
+      );
+    }
 
     const convertedImages = await Promise.all(
-      files.map(async (file) => {
+      validFiles.map(async (file) => {
         if (file.type === "image/heic") {
           return convertHEICToJPEG(file);
         }
@@ -192,6 +200,7 @@ function WeekTen() {
           <canvas className="weekten_mosaic_canvas" ref={canvasRef}></canvas>
         )}
       </div>
+      <a ref={downloadLinkRef} style={{ display: "none" }}></a>
     </div>
   );
 }
